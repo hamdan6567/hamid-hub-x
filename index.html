@@ -1,0 +1,6645 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>HAMID HUB X — NOVA</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Orbitron:wght@500;600;700;800;900&display=swap');
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --bg:#020308;
+    --bg2:#060914;
+    --panel:rgba(9,13,25,.70);
+    --panel2:rgba(15,20,35,.84);
+    --panel3:rgba(255,255,255,.045);
+    --line:rgba(255,255,255,.085);
+    --line2:rgba(255,255,255,.14);
+    --text:#f7f9ff;
+    --muted:#8993a8;
+    --muted2:#5e687c;
+    --accent:#795cff;
+    --accent2:#00d9ff;
+    --pink:#ff4f91;
+    --success:#24e6a0;
+    --warning:#ffc857;
+    --danger:#ff4d70;
+    --shadow:0 30px 100px rgba(0,0,0,.52);
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 10% 0%,rgba(121,92,255,.14),transparent 30%),
+        radial-gradient(circle at 95% 10%,rgba(0,217,255,.11),transparent 27%),
+        radial-gradient(circle at 50% 100%,rgba(255,79,145,.07),transparent 32%),
+        var(--bg);
+    color:var(--text);
+    font-family:Cairo,Arial,sans-serif;
+    overflow-x:hidden;
+}
+
+/* =====================================================
+   PREMIUM SPACE BACKGROUND
+===================================================== */
+
+#spaceCanvas{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:-5;
+}
+
+.space-overlay{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-4;
+    background:
+        radial-gradient(circle at 50% 50%,transparent 25%,rgba(0,0,0,.20) 100%),
+        linear-gradient(rgba(255,255,255,.008) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.008) 1px,transparent 1px);
+    background-size:auto,80px 80px,80px 80px;
+    mask-image:linear-gradient(to bottom,black,transparent 90%);
+}
+
+.aurora{
+    position:fixed;
+    width:700px;
+    height:700px;
+    border-radius:50%;
+    filter:blur(130px);
+    pointer-events:none;
+    opacity:.10;
+    z-index:-3;
+}
+
+.aurora.a{
+    top:-350px;
+    right:-200px;
+    background:#7657ff;
+    animation:auroraFloat 12s ease-in-out infinite alternate;
+}
+
+.aurora.b{
+    bottom:-380px;
+    left:-250px;
+    background:#00d9ff;
+    animation:auroraFloat 15s ease-in-out infinite alternate-reverse;
+}
+
+.aurora.c{
+    top:35%;
+    left:35%;
+    background:#ff3f91;
+    opacity:.035;
+    animation:auroraFloat 18s ease-in-out infinite alternate;
+}
+
+@keyframes auroraFloat{
+    from{transform:translate(0,0) scale(1)}
+    to{transform:translate(70px,40px) scale(1.15)}
+}
+
+/* =====================================================
+   WELCOME
+===================================================== */
+
+.welcome-screen{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:
+        radial-gradient(circle at 50% 40%,rgba(121,92,255,.18),transparent 35%),
+        rgba(1,3,8,.94);
+    backdrop-filter:blur(22px);
+    transition:.7s ease;
+}
+
+.welcome-screen.hidden{
+    opacity:0;
+    pointer-events:none;
+    transform:scale(1.04);
+}
+
+.welcome-box{
+    width:min(680px,100%);
+    position:relative;
+    overflow:hidden;
+    padding:48px;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:34px;
+    background:
+        linear-gradient(145deg,rgba(121,92,255,.12),rgba(0,217,255,.035)),
+        rgba(7,10,19,.88);
+    box-shadow:
+        0 50px 150px rgba(0,0,0,.7),
+        0 0 100px rgba(121,92,255,.08);
+}
+
+.welcome-box:before{
+    content:"";
+    position:absolute;
+    width:300px;
+    height:300px;
+    background:var(--accent);
+    filter:blur(100px);
+    opacity:.13;
+    left:-130px;
+    bottom:-150px;
+}
+
+.welcome-brand{
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin-bottom:35px;
+}
+
+.welcome-logo{
+    width:62px;
+    height:62px;
+    border-radius:21px;
+    display:grid;
+    place-items:center;
+    font-family:Orbitron;
+    font-size:25px;
+    font-weight:900;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    box-shadow:
+        0 0 40px rgba(121,92,255,.35),
+        inset 0 0 25px rgba(255,255,255,.15);
+}
+
+.welcome-brand strong{
+    font-family:Orbitron;
+    font-size:21px;
+}
+
+.welcome-brand span{
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+    letter-spacing:3px;
+    margin-top:4px;
+}
+
+.welcome-box h1{
+    position:relative;
+    font-size:clamp(32px,6vw,58px);
+    line-height:1.08;
+    letter-spacing:-2px;
+    margin-bottom:14px;
+}
+
+.welcome-box>p{
+    position:relative;
+    color:var(--muted);
+    line-height:1.9;
+    font-size:13px;
+    margin-bottom:28px;
+}
+
+.welcome-step{
+    position:relative;
+    margin-top:18px;
+}
+
+.welcome-label{
+    color:#9da7bb;
+    font-size:11px;
+    margin-bottom:8px;
+    display:block;
+}
+
+.welcome-input{
+    width:100%;
+    height:54px;
+    padding:0 17px;
+    border-radius:15px;
+    border:1px solid var(--line);
+    outline:none;
+    background:rgba(0,0,0,.28);
+    color:#fff;
+    font-family:inherit;
+    transition:.25s;
+}
+
+.welcome-input:focus{
+    border-color:rgba(121,92,255,.7);
+    box-shadow:0 0 0 4px rgba(121,92,255,.07);
+}
+
+.gender-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.gender-btn{
+    height:58px;
+    border:1px solid var(--line);
+    border-radius:16px;
+    color:#aab3c5;
+    background:rgba(255,255,255,.025);
+    cursor:pointer;
+    font-family:inherit;
+    font-size:14px;
+    transition:.25s;
+}
+
+.gender-btn:hover{
+    transform:translateY(-2px);
+    border-color:rgba(121,92,255,.4);
+}
+
+.gender-btn.selected{
+    color:white;
+    border-color:rgba(121,92,255,.65);
+    background:linear-gradient(135deg,rgba(121,92,255,.20),rgba(0,217,255,.06));
+    box-shadow:0 0 30px rgba(121,92,255,.10);
+}
+
+.enter-btn{
+    position:relative;
+    width:100%;
+    height:57px;
+    margin-top:25px;
+    border:0;
+    border-radius:16px;
+    cursor:pointer;
+    color:#fff;
+    font-family:inherit;
+    font-weight:800;
+    font-size:14px;
+    background:linear-gradient(135deg,var(--accent),#4b36df);
+    box-shadow:0 15px 45px rgba(121,92,255,.27);
+    transition:.3s;
+}
+
+.enter-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 20px 55px rgba(121,92,255,.38);
+}
+
+.welcome-note{
+    text-align:center;
+    color:#596377;
+    font-size:9px;
+    margin-top:14px;
+}
+
+/* =====================================================
+   APP
+===================================================== */
+
+.app{
+    display:flex;
+    min-height:100vh;
+    opacity:0;
+    transition:opacity .7s ease;
+}
+
+.app.ready{
+    opacity:1;
+}
+
+.sidebar{
+    width:270px;
+    position:fixed;
+    right:18px;
+    top:18px;
+    bottom:18px;
+    padding:20px 14px;
+    border:1px solid var(--line);
+    border-radius:28px;
+    background:rgba(4,7,14,.70);
+    backdrop-filter:blur(28px);
+    z-index:1000;
+    overflow-y:auto;
+    box-shadow:var(--shadow);
+}
+
+.sidebar::-webkit-scrollbar{
+    width:4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb{
+    background:rgba(255,255,255,.08);
+    border-radius:99px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:7px 9px 18px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:14px;
+}
+
+.logo-icon{
+    width:48px;
+    height:48px;
+    flex:none;
+    border-radius:16px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    box-shadow:0 0 35px rgba(121,92,255,.30);
+    font-family:Orbitron;
+    font-weight:900;
+}
+
+.logo-text strong{
+    display:block;
+    font-family:Orbitron;
+    font-size:15px;
+    letter-spacing:.5px;
+}
+
+.logo-text span{
+    color:#667086;
+    font-size:9px;
+    letter-spacing:2px;
+}
+
+.nav-title{
+    color:#4e596e;
+    font-size:9px;
+    font-weight:900;
+    margin:18px 10px 8px;
+    letter-spacing:2px;
+}
+
+.nav{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+}
+
+.nav button{
+    width:100%;
+    min-height:45px;
+    border:1px solid transparent;
+    color:#8791a5;
+    background:transparent;
+    padding:10px 12px;
+    border-radius:14px;
+    text-align:right;
+    font-family:inherit;
+    cursor:pointer;
+    transition:.25s;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.nav button:hover{
+    background:rgba(255,255,255,.045);
+    color:white;
+    transform:translateX(-3px);
+}
+
+.nav button.active{
+    color:white;
+    border-color:rgba(121,92,255,.18);
+    background:
+        linear-gradient(90deg,rgba(121,92,255,.18),rgba(0,217,255,.035));
+    box-shadow:
+        inset -3px 0 var(--accent),
+        0 10px 25px rgba(0,0,0,.12);
+}
+
+.nav-icon{
+    width:27px;
+    text-align:center;
+    font-size:16px;
+}
+
+.main{
+    width:calc(100% - 306px);
+    margin-right:306px;
+    padding:25px 25px 60px 35px;
+}
+
+.topbar{
+    height:65px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:23px;
+}
+
+.search-box{
+    flex:1;
+    max-width:620px;
+    position:relative;
+}
+
+.search-box input{
+    width:100%;
+    height:48px;
+    border:1px solid var(--line);
+    background:rgba(7,11,20,.68);
+    color:white;
+    outline:none;
+    border-radius:15px;
+    padding:0 45px 0 15px;
+    font-family:inherit;
+    transition:.25s;
+}
+
+.search-box input:focus{
+    border-color:rgba(121,92,255,.45);
+    box-shadow:0 0 30px rgba(121,92,255,.05);
+}
+
+.search-box span{
+    position:absolute;
+    right:16px;
+    top:13px;
+    color:#657087;
+}
+
+.top-actions{
+    margin-right:auto;
+    display:flex;
+    gap:7px;
+}
+
+.icon-btn{
+    width:46px;
+    height:46px;
+    flex:none;
+    border-radius:14px;
+    border:1px solid var(--line);
+    background:rgba(8,12,21,.70);
+    color:white;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.icon-btn:hover{
+    border-color:rgba(121,92,255,.55);
+    transform:translateY(-2px);
+}
+
+.profile-mini{
+    height:48px;
+    padding:5px 10px 5px 6px;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    border:1px solid var(--line);
+    border-radius:16px;
+    background:rgba(8,12,21,.70);
+    cursor:pointer;
+    transition:.25s;
+}
+
+.profile-mini:hover{
+    border-color:rgba(121,92,255,.4);
+}
+
+.avatar{
+    width:37px;
+    height:37px;
+    border-radius:12px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    font-weight:900;
+    font-size:13px;
+}
+
+.profile-mini-text strong{
+    display:block;
+    font-size:11px;
+}
+
+.profile-mini-text span{
+    display:block;
+    color:#667086;
+    font-size:8px;
+}
+
+/* =====================================================
+   PAGES
+===================================================== */
+
+.page{
+    display:none;
+    animation:pageIn .38s ease;
+}
+
+.page.active{
+    display:block;
+}
+
+@keyframes pageIn{
+    from{
+        opacity:0;
+        transform:translateY(14px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+.hero{
+    min-height:420px;
+    position:relative;
+    overflow:hidden;
+    border:1px solid var(--line);
+    border-radius:32px;
+    padding:52px;
+    background:
+        radial-gradient(circle at 80% 30%,rgba(0,217,255,.06),transparent 25%),
+        linear-gradient(135deg,rgba(121,92,255,.12),rgba(0,217,255,.025)),
+        rgba(7,11,20,.72);
+    box-shadow:var(--shadow);
+}
+
+.hero:after{
+    content:"";
+    position:absolute;
+    width:500px;
+    height:500px;
+    border:1px solid rgba(255,255,255,.035);
+    border-radius:50%;
+    left:-170px;
+    bottom:-300px;
+    box-shadow:
+        0 0 0 50px rgba(255,255,255,.012),
+        0 0 0 100px rgba(255,255,255,.009);
+}
+
+.hero-glow{
+    position:absolute;
+    width:400px;
+    height:400px;
+    right:4%;
+    top:-170px;
+    background:var(--accent);
+    filter:blur(130px);
+    opacity:.10;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    max-width:780px;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:7px 12px;
+    border:1px solid rgba(36,230,160,.17);
+    background:rgba(36,230,160,.055);
+    border-radius:999px;
+    color:#62eab5;
+    font-size:10px;
+    letter-spacing:1px;
+    margin-bottom:20px;
+}
+
+.online{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--success);
+    box-shadow:0 0 12px var(--success);
+    animation:pulse 1.7s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{opacity:1;box-shadow:0 0 8px var(--success)}
+    50%{opacity:.5;box-shadow:0 0 20px var(--success)}
+}
+
+.hero h1{
+    font-size:clamp(37px,5.2vw,70px);
+    line-height:1.02;
+    margin-bottom:18px;
+    letter-spacing:-3px;
+}
+
+.gradient{
+    background:linear-gradient(90deg,#fff 0%,#d8d3ff 28%,var(--accent2) 72%,#a994ff 100%);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.hero p{
+    color:#9aa4b7;
+    line-height:2;
+    max-width:670px;
+    font-size:14px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:9px;
+    margin-top:26px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    border:1px solid var(--line);
+    border-radius:13px;
+    padding:11px 17px;
+    cursor:pointer;
+    font-family:inherit;
+    color:white;
+    background:rgba(255,255,255,.045);
+    transition:.25s;
+    font-size:12px;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+    border-color:rgba(255,255,255,.17);
+}
+
+.btn.primary{
+    border:0;
+    background:linear-gradient(135deg,var(--accent),#4f39df);
+    box-shadow:0 10px 30px rgba(121,92,255,.22);
+}
+
+.btn.primary:hover{
+    box-shadow:0 15px 40px rgba(121,92,255,.32);
+}
+
+.btn.success{
+    background:rgba(36,230,160,.08);
+    color:#54eab1;
+    border-color:rgba(36,230,160,.15);
+}
+
+.btn.danger{
+    background:rgba(255,77,112,.08);
+    color:#ff7892;
+    border-color:rgba(255,77,112,.14);
+}
+
+.btn.warning{
+    background:rgba(255,200,87,.08);
+    color:#ffd66e;
+}
+
+.grid{
+    display:grid;
+    gap:14px;
+}
+
+.stats{
+    grid-template-columns:repeat(4,1fr);
+    margin-top:17px;
+}
+
+.card{
+    border:1px solid var(--line);
+    background:
+        linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012)),
+        var(--panel);
+    border-radius:21px;
+    padding:20px;
+    backdrop-filter:blur(22px);
+    box-shadow:0 15px 50px rgba(0,0,0,.18);
+}
+
+.stat{
+    position:relative;
+    overflow:hidden;
+    min-height:105px;
+}
+
+.stat:after{
+    content:"";
+    position:absolute;
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:var(--accent);
+    filter:blur(60px);
+    opacity:.08;
+    left:-50px;
+    bottom:-70px;
+}
+
+.stat small{
+    color:#737e93;
+    font-size:10px;
+}
+
+.stat strong{
+    display:block;
+    font-family:Orbitron;
+    font-size:27px;
+    margin-top:8px;
+}
+
+.stat-icon{
+    position:absolute;
+    left:17px;
+    top:17px;
+    font-size:21px;
+    opacity:.55;
+}
+
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    gap:15px;
+    margin:30px 0 14px;
+}
+
+.section-head h2{
+    font-size:22px;
+}
+
+.section-head p{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:3px;
+}
+
+.command-grid{
+    grid-template-columns:repeat(3,1fr);
+}
+
+.command{
+    min-height:180px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.command:hover{
+    transform:translateY(-6px);
+    border-color:rgba(121,92,255,.33);
+    box-shadow:0 20px 55px rgba(0,0,0,.25);
+}
+
+.command .big-icon{
+    font-size:29px;
+    margin-bottom:17px;
+}
+
+.command h3{
+    margin-bottom:7px;
+}
+
+.command p{
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.9;
+}
+
+/* =====================================================
+   WORKSPACE
+===================================================== */
+
+.workspace{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+}
+
+.form-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:22px;
+    backdrop-filter:blur(20px);
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.form-group label{
+    display:block;
+    color:#9ca6b9;
+    font-size:11px;
+    margin-bottom:7px;
+}
+
+.input,
+select,
+textarea{
+    width:100%;
+    background:rgba(2,5,11,.75);
+    color:white;
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:12px;
+    outline:none;
+    font-family:inherit;
+    font-size:12px;
+    transition:.2s;
+}
+
+.input:focus,
+select:focus,
+textarea:focus{
+    border-color:rgba(121,92,255,.6);
+    box-shadow:0 0 0 3px rgba(121,92,255,.055);
+}
+
+textarea{
+    min-height:110px;
+    resize:vertical;
+}
+
+.result{
+    min-height:400px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    flex-direction:column;
+    gap:14px;
+}
+
+.logo-preview{
+    width:210px;
+    height:210px;
+    border-radius:45px;
+    display:grid;
+    place-items:center;
+    font-family:Orbitron;
+    font-size:54px;
+    font-weight:900;
+    color:white;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    box-shadow:
+        0 0 60px rgba(121,92,255,.26),
+        inset 0 0 40px rgba(255,255,255,.12);
+    transition:.4s;
+}
+
+.prompt{
+    width:100%;
+    padding:13px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    color:#8993a7;
+    font-size:10px;
+    line-height:1.8;
+    text-align:right;
+    background:rgba(0,0,0,.25);
+}
+
+/* =====================================================
+   CHAT
+===================================================== */
+
+.chat{
+    height:550px;
+    display:flex;
+    flex-direction:column;
+    border:1px solid var(--line);
+    background:var(--panel);
+    border-radius:22px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+}
+
+.chat-head{
+    padding:17px 20px;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.messages{
+    flex:1;
+    padding:20px;
+    overflow:auto;
+}
+
+.message{
+    max-width:78%;
+    padding:12px 15px;
+    border-radius:16px;
+    margin-bottom:12px;
+    line-height:1.9;
+    font-size:12px;
+    animation:messageIn .25s ease;
+}
+
+@keyframes messageIn{
+    from{opacity:0;transform:translateY(7px)}
+    to{opacity:1;transform:none}
+}
+
+.message.ai{
+    background:#0d1420;
+    border:1px solid var(--line);
+}
+
+.message.user{
+    margin-right:auto;
+    background:linear-gradient(135deg,var(--accent),#4e38dc);
+}
+
+.chat-input{
+    padding:13px;
+    border-top:1px solid var(--line);
+    display:flex;
+    gap:8px;
+}
+
+/* =====================================================
+   SUPPORT
+===================================================== */
+
+.support-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+}
+
+.ticket-card,
+.inquiry-card{
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.025);
+    border-radius:17px;
+    padding:16px;
+    margin-top:10px;
+    transition:.2s;
+}
+
+.ticket-card:hover,
+.inquiry-card:hover{
+    border-color:rgba(121,92,255,.25);
+}
+
+.ticket-head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.ticket-title{
+    font-weight:800;
+    font-size:13px;
+}
+
+.ticket-meta{
+    color:#687286;
+    font-size:9px;
+    margin-top:5px;
+}
+
+.ticket-message{
+    color:#9ca6b8;
+    font-size:11px;
+    line-height:1.9;
+    margin-top:12px;
+}
+
+.ticket-actions{
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap;
+    margin-top:13px;
+}
+
+.status{
+    display:inline-flex;
+    align-items:center;
+    padding:5px 9px;
+    border-radius:999px;
+    background:rgba(36,230,160,.08);
+    color:#4deab0;
+    font-size:9px;
+    white-space:nowrap;
+}
+
+.status.new{
+    background:rgba(0,217,255,.08);
+    color:#5ee2ff;
+}
+
+.status.processing{
+    background:rgba(255,200,87,.09);
+    color:#ffd66e;
+}
+
+.status.closed{
+    background:rgba(255,255,255,.06);
+    color:#7e889b;
+}
+
+/* =====================================================
+   FOOTBALL — kept existing style/logic
+===================================================== */
+
+.football-top{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.club-result{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:15px;
+    border:1px solid var(--line);
+    border-radius:15px;
+    margin-top:10px;
+    cursor:pointer;
+    transition:.2s;
+    background:rgba(255,255,255,.025);
+}
+
+.club-result:hover{
+    border-color:rgba(121,92,255,.5);
+    transform:translateY(-2px);
+}
+
+.club-logo{
+    width:55px;
+    height:55px;
+    object-fit:contain;
+    border-radius:12px;
+    background:#080c14;
+    padding:7px;
+}
+
+.match-card{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    padding:18px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.025);
+    border-radius:18px;
+    margin-top:12px;
+}
+
+.match-team{
+    flex:1;
+    text-align:center;
+}
+
+.match-team img{
+    width:55px;
+    height:55px;
+    object-fit:contain;
+    margin-bottom:7px;
+}
+
+.match-team strong{
+    display:block;
+    font-size:13px;
+}
+
+.match-vs{
+    text-align:center;
+    min-width:90px;
+}
+
+.match-vs b{
+    display:block;
+    color:#a99cff;
+    font-size:13px;
+}
+
+.match-vs span{
+    color:#737d91;
+    font-size:10px;
+}
+
+.fixture-empty{
+    text-align:center;
+    padding:40px;
+    color:#737d91;
+}
+
+/* =====================================================
+   STORE
+===================================================== */
+
+.products{
+    grid-template-columns:repeat(3,1fr);
+}
+
+.product{
+    overflow:hidden;
+    padding:0;
+}
+
+.product-img{
+    height:170px;
+    display:grid;
+    place-items:center;
+    font-size:50px;
+    background:radial-gradient(circle,#222a48,#080b12 70%);
+}
+
+.product-body{
+    padding:18px;
+}
+
+.price{
+    color:#a99cff;
+    font-family:Orbitron;
+    font-size:20px;
+    margin:10px 0 15px;
+}
+
+.discount-box{
+    margin-top:15px;
+    padding:15px;
+    border-radius:15px;
+    background:rgba(36,230,160,.055);
+    border:1px solid rgba(36,230,160,.14);
+    color:#42e9aa;
+}
+
+.final-price{
+    color:#42e9aa;
+    font-size:20px;
+    font-weight:800;
+}
+
+.old-price{
+    color:#727c90;
+    text-decoration:line-through;
+    margin-left:8px;
+}
+
+/* =====================================================
+   MANAGEMENT
+===================================================== */
+
+.role-card{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    padding:17px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.025);
+    border-radius:16px;
+    margin-top:10px;
+}
+
+.role-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:6px 10px;
+    border-radius:999px;
+    font-size:9px;
+    background:rgba(121,92,255,.12);
+    color:#b9afff;
+}
+
+.role-badge.admin{
+    background:rgba(255,193,7,.10);
+    color:#ffd35a;
+}
+
+.role-badge.member{
+    background:rgba(0,217,255,.08);
+    color:#55ddff;
+}
+
+.application{
+    padding:18px;
+    border:1px solid var(--line);
+    border-radius:17px;
+    background:rgba(255,255,255,.025);
+    margin-top:12px;
+}
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.table th,
+.table td{
+    padding:13px;
+    border-bottom:1px solid var(--line);
+    text-align:right;
+    font-size:11px;
+}
+
+.table th{
+    color:#6f798d;
+}
+
+/* =====================================================
+   ADMIN
+===================================================== */
+
+.admin-tabs{
+    display:flex;
+    gap:7px;
+    overflow:auto;
+    padding-bottom:4px;
+    margin-bottom:15px;
+}
+
+.admin-tab{
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.025);
+    color:#7e899d;
+    border-radius:12px;
+    padding:10px 15px;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:11px;
+    white-space:nowrap;
+}
+
+.admin-tab.active{
+    color:white;
+    background:rgba(121,92,255,.13);
+    border-color:rgba(121,92,255,.30);
+}
+
+.admin-panel{
+    display:none;
+}
+
+.admin-panel.active{
+    display:block;
+}
+
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+.settings{
+    max-width:850px;
+}
+
+.setting-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    padding:18px 0;
+    border-bottom:1px solid var(--line);
+}
+
+.setting-row:last-child{
+    border:0;
+}
+
+.setting-row span{
+    display:block;
+    color:#8d97aa;
+    font-size:10px;
+    margin-top:4px;
+}
+
+.color-input{
+    width:50px;
+    height:38px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:transparent;
+    cursor:pointer;
+}
+
+/* =====================================================
+   TOGGLE
+===================================================== */
+
+.switch{
+    width:48px;
+    height:26px;
+    position:relative;
+}
+
+.switch input{
+    display:none;
+}
+
+.slider{
+    position:absolute;
+    inset:0;
+    border-radius:30px;
+    background:#202738;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.slider:before{
+    content:"";
+    position:absolute;
+    width:20px;
+    height:20px;
+    top:3px;
+    right:4px;
+    border-radius:50%;
+    background:#778096;
+    transition:.25s;
+}
+
+.switch input:checked+.slider{
+    background:rgba(121,92,255,.45);
+}
+
+.switch input:checked+.slider:before{
+    transform:translateX(-20px);
+    background:white;
+}
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast{
+    position:fixed;
+    bottom:25px;
+    left:25px;
+    max-width:330px;
+    padding:13px 17px;
+    border:1px solid var(--line);
+    background:rgba(8,12,21,.92);
+    backdrop-filter:blur(18px);
+    color:white;
+    border-radius:13px;
+    box-shadow:var(--shadow);
+    transform:translateY(100px);
+    opacity:0;
+    transition:.3s;
+    z-index:10000;
+    font-size:11px;
+}
+
+.toast.show{
+    transform:none;
+    opacity:1;
+}
+
+/* =====================================================
+   NOTIFICATION DOT
+===================================================== */
+
+.notify-dot{
+    position:absolute;
+    width:7px;
+    height:7px;
+    background:var(--danger);
+    border-radius:50%;
+    top:7px;
+    right:7px;
+    box-shadow:0 0 10px var(--danger);
+}
+
+.icon-wrap{
+    position:relative;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:1100px){
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .command-grid,
+    .products{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .workspace,
+    .support-grid,
+    .football-top{
+        grid-template-columns:1fr;
+    }
+
+    .sidebar{
+        width:250px;
+    }
+
+    .main{
+        width:calc(100% - 275px);
+        margin-right:275px;
+    }
+}
+
+@media(max-width:800px){
+    .sidebar{
+        right:10px;
+        top:10px;
+        bottom:10px;
+        transform:translateX(120%);
+        transition:.35s;
+    }
+
+    .sidebar.open{
+        transform:none;
+    }
+
+    .main{
+        width:100%;
+        margin-right:0;
+        padding:14px;
+    }
+
+    .hero{
+        padding:30px 23px;
+    }
+
+    .stats,
+    .command-grid,
+    .products{
+        grid-template-columns:1fr;
+    }
+
+    .topbar{
+        gap:7px;
+    }
+
+    .search-box{
+        max-width:none;
+    }
+
+    .top-actions{
+        display:none;
+    }
+
+    .profile-mini-text{
+        display:none;
+    }
+
+    .profile-mini{
+        padding:5px;
+    }
+
+    .welcome-box{
+        padding:30px 22px;
+    }
+}
+
+@media(max-width:500px){
+    .hero h1{
+        letter-spacing:-1.5px;
+    }
+
+    .hero{
+        min-height:390px;
+    }
+
+    .gender-grid{
+        grid-template-columns:1fr;
+    }
+
+    .chat{
+        height:580px;
+    }
+
+    .message{
+        max-width:90%;
+    }
+
+    .toast{
+        left:12px;
+        right:12px;
+        bottom:12px;
+        max-width:none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="spaceCanvas"></canvas>
+<div class="space-overlay"></div>
+<div class="aurora a"></div>
+<div class="aurora b"></div>
+<div class="aurora c"></div>
+
+<!-- =====================================================
+     WELCOME
+===================================================== -->
+
+<div class="welcome-screen" id="welcomeScreen">
+
+    <div class="welcome-box">
+
+        <div class="welcome-brand">
+            <div class="welcome-logo">H</div>
+
+            <div>
+                <strong>HAMID HUB X</strong>
+                <span>NOVA EXPERIENCE</span>
+            </div>
+        </div>
+
+        <h1>
+            جاهز تدخل
+            <span class="gradient">HAMID HUB X؟</span>
+        </h1>
+
+        <p>
+            قبل ما ندخلك للنظام، خلنا نجهز تجربتك الشخصية.
+            اكتب اسمك واختر حسابك.
+        </p>
+
+        <div class="welcome-step">
+
+            <label class="welcome-label">
+                اسمك
+            </label>
+
+            <input
+                id="welcomeName"
+                class="welcome-input"
+                placeholder="مثال: Hamdan"
+                maxlength="30"
+            >
+
+        </div>
+
+        <div class="welcome-step">
+
+            <label class="welcome-label">
+                اختر
+            </label>
+
+            <div class="gender-grid">
+
+                <button
+                    class="gender-btn"
+                    id="maleBtn"
+                    onclick="selectGender('male')"
+                >
+                    👦 ولد
+                </button>
+
+                <button
+                    class="gender-btn"
+                    id="femaleBtn"
+                    onclick="selectGender('female')"
+                >
+                    👧 بنت
+                </button>
+
+            </div>
+
+        </div>
+
+        <button
+            class="enter-btn"
+            onclick="enterHub()"
+        >
+            ✦ دخول إلى HAMID HUB X
+        </button>
+
+        <div class="welcome-note">
+            تجربة NOVA • بياناتك تحفظ محليًا على هذا الجهاز
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =====================================================
+     APP
+===================================================== -->
+
+<div class="app" id="app">
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            H
+        </div>
+
+        <div class="logo-text">
+            <strong>HAMID HUB X</strong>
+            <span>NOVA SYSTEM</span>
+        </div>
+
+    </div>
+
+    <div class="nav-title">MAIN</div>
+
+    <nav class="nav">
+
+        <button class="active" onclick="showPage('home',this)">
+            <span class="nav-icon">⌂</span>
+            الرئيسية
+        </button>
+
+        <button onclick="showPage('search',this)">
+            <span class="nav-icon">⌕</span>
+            البحث
+        </button>
+
+        <button onclick="showPage('ai',this)">
+            <span class="nav-icon">✦</span>
+            HAMID AI
+        </button>
+
+        <button onclick="showPage('logo',this)">
+            <span class="nav-icon">◈</span>
+            Logo Studio
+        </button>
+
+        <div class="nav-title">DISCOVER</div>
+
+        <button onclick="showPage('football',this)">
+            <span class="nav-icon">⚽</span>
+            Football
+        </button>
+
+        <button onclick="showPage('fivem',this)">
+            <span class="nav-icon">◉</span>
+            FiveM
+        </button>
+
+        <button onclick="showPage('management',this)">
+            <span class="nav-icon">📝</span>
+            التقديم على إدارة المتجر
+        </button>
+
+        <button onclick="showPage('uae',this)">
+            <span class="nav-icon">🇦🇪</span>
+            UAE
+        </button>
+
+        <div class="nav-title">SUPPORT</div>
+
+        <button onclick="showPage('support',this)">
+            <span class="nav-icon">🎫</span>
+            الدعم والتذاكر
+        </button>
+
+        <button onclick="showPage('inquiries',this)">
+            <span class="nav-icon">💬</span>
+            استفساراتي
+        </button>
+
+        <div class="nav-title">PERSONAL</div>
+
+        <button onclick="showPage('student',this)">
+            <span class="nav-icon">📚</span>
+            Student
+        </button>
+
+        <button onclick="showPage('store',this)">
+            <span class="nav-icon">🛒</span>
+            Store
+        </button>
+
+        <button onclick="showPage('dashboard',this)">
+            <span class="nav-icon">▦</span>
+            Dashboard
+        </button>
+
+        <button onclick="showPage('admin',this)">
+            <span class="nav-icon">👑</span>
+            Admin Center
+        </button>
+
+        <button onclick="showPage('settings',this)">
+            <span class="nav-icon">⚙</span>
+            Settings
+        </button>
+
+    </nav>
+
+</aside>
+
+<main class="main">
+
+<header class="topbar">
+
+    <button
+        class="icon-btn"
+        onclick="toggleSidebar()"
+    >
+        ☰
+    </button>
+
+    <div class="search-box">
+
+        <span>⌕</span>
+
+        <input
+            id="globalSearch"
+            placeholder="ابحث داخل HAMID HUB..."
+            onkeydown="globalSearch(event)"
+        >
+
+    </div>
+
+    <div class="top-actions">
+
+        <button
+            class="icon-btn"
+            onclick="toggleFullscreen()"
+        >
+            ⛶
+        </button>
+
+        <div class="icon-wrap">
+
+            <button
+                class="icon-btn"
+                onclick="showPage('support')"
+            >
+                🔔
+            </button>
+
+            <span
+                id="notificationDot"
+                class="notify-dot"
+                style="display:none"
+            ></span>
+
+        </div>
+
+    </div>
+
+    <div
+        class="profile-mini"
+        onclick="showPage('settings')"
+    >
+
+        <div
+            class="avatar"
+            id="topAvatar"
+        >
+            H
+        </div>
+
+        <div class="profile-mini-text">
+
+            <strong id="topName">
+                Hamdan
+            </strong>
+
+            <span>
+                NOVA USER
+            </span>
+
+        </div>
+
+    </div>
+
+</header>
+
+<!-- =====================================================
+ HOME
+===================================================== -->
+
+<section class="page active" id="home">
+
+    <div class="hero">
+
+        <div class="hero-glow"></div>
+
+        <div class="hero-content">
+
+            <div class="badge">
+                <span class="online"></span>
+                SYSTEM ONLINE • NOVA
+            </div>
+
+            <h1>
+                أهلاً بك
+                <span id="heroUserName">في HAMID HUB</span>
+            </h1>
+
+            <p>
+                مركزك الشخصي المطوّر للأدوات، الذكاء الاصطناعي،
+                التصميم، الدراسة، الألعاب، كرة القدم، المتجر والدعم.
+                كل شيء في تجربة واحدة.
+            </p>
+
+            <div class="hero-buttons">
+
+                <button
+                    class="btn primary"
+                    onclick="showPage('ai')"
+                >
+                    ✦ افتح HAMID AI
+                </button>
+
+                <button
+                    class="btn"
+                    onclick="showPage('logo')"
+                >
+                    ◈ صمم شعار
+                </button>
+
+                <button
+                    class="btn"
+                    onclick="showPage('support')"
+                >
+                    🎫 افتح تذكرة
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="grid stats">
+
+        <div class="card stat">
+            <span class="stat-icon">⚡</span>
+            <small>النشاط</small>
+            <strong id="statActions">0</strong>
+        </div>
+
+        <div class="card stat">
+            <span class="stat-icon">🎨</span>
+            <small>التصاميم</small>
+            <strong id="statLogos">0</strong>
+        </div>
+
+        <div class="card stat">
+            <span class="stat-icon">🛒</span>
+            <small>السلة</small>
+            <strong id="statCart">0</strong>
+        </div>
+
+        <div class="card stat">
+            <span class="stat-icon">📚</span>
+            <small>المهام</small>
+            <strong id="statTasks">0</strong>
+        </div>
+
+    </div>
+
+    <div class="section-head">
+        <div>
+            <h2>ماذا تريد أن تفعل؟</h2>
+            <p>الأدوات السريعة في HAMID HUB X.</p>
+        </div>
+    </div>
+
+    <div class="grid command-grid">
+
+        <div
+            class="card command"
+            onclick="showPage('ai')"
+        >
+            <div class="big-icon">🤖</div>
+            <h3>اسأل HAMID AI</h3>
+            <p>
+                مساعدك الشخصي داخل الموقع.
+            </p>
+        </div>
+
+        <div
+            class="card command"
+            onclick="showPage('support')"
+        >
+            <div class="big-icon">🎫</div>
+            <h3>الدعم والتذاكر</h3>
+            <p>
+                مشكلة؟ شكوى؟ افتح تذكرة مباشرة.
+            </p>
+        </div>
+
+        <div
+            class="card command"
+            onclick="showPage('management')"
+        >
+            <div class="big-icon">👑</div>
+            <h3>إدارة المتجر</h3>
+            <p>
+                التقديم على الإدارة وإدارة الأعضاء.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+ SEARCH
+===================================================== -->
+
+<section class="page" id="search">
+
+    <div class="section-head">
+        <div>
+            <h2>البحث الذكي</h2>
+            <p>بحث واحد — والنتيجة في المكان الصحيح.</p>
+        </div>
+    </div>
+
+    <div class="card">
+
+        <div class="form-group">
+
+            <label>
+                ماذا تريد أن تبحث عنه؟
+            </label>
+
+            <input
+                class="input"
+                id="searchInput"
+                placeholder="مثال: Real Madrid"
+                onkeydown="searchEnter(event)"
+            >
+
+        </div>
+
+        <div class="hero-buttons">
+
+            <button
+                class="btn primary"
+                onclick="doSearch('google')"
+            >
+                🔎 Google
+            </button>
+
+            <button
+                class="btn"
+                onclick="doSearch('youtube')"
+            >
+                ▶ YouTube
+            </button>
+
+            <button
+                class="btn"
+                onclick="doSearch('images')"
+            >
+                🖼 الصور
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+ AI
+===================================================== -->
+
+<section class="page" id="ai">
+
+    <div class="section-head">
+        <div>
+            <h2>HAMID AI</h2>
+            <p>مساعدك الشخصي داخل HAMID HUB.</p>
+        </div>
+    </div>
+
+    <div class="chat">
+
+        <div class="chat-head">
+
+            <div class="online"></div>
+
+            <strong>
+                HAMID AI
+            </strong>
+
+            <span
+                style="color:#697389;font-size:10px"
+            >
+                NOVA LOCAL
+            </span>
+
+        </div>
+
+        <div
+            class="messages"
+            id="messages"
+        >
+
+            <div class="message ai">
+                السلام عليكم 👋<br>
+                أنا HAMID AI. شو تباني أساعدك فيه؟
+            </div>
+
+        </div>
+
+        <div class="chat-input">
+
+            <input
+                class="input"
+                id="aiInput"
+                placeholder="اكتب رسالتك..."
+                onkeydown="aiEnter(event)"
+            >
+
+            <button
+                class="btn primary"
+                onclick="sendAI()"
+            >
+                إرسال
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+ LOGO
+===================================================== -->
+
+<section class="page" id="logo">
+
+    <div class="section-head">
+        <div>
+            <h2>Logo Studio</h2>
+            <p>أنشئ هوية بصرية بسرعة.</p>
+        </div>
+    </div>
+
+    <div class="workspace">
+
+        <div class="form-card">
+
+            <div class="form-group">
+
+                <label>
+                    اسم العلامة
+                </label>
+
+                <input
+                    id="brandName"
+                    class="input"
+                    placeholder="HAMID"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>
+                    نوع الشعار
+                </label>
+
+                <select
+                    id="logoType"
+                    class="input"
+                >
+                    <option>Lettermark</option>
+                    <option>Wordmark</option>
+                    <option>Symbol</option>
+                    <option>Emblem</option>
+                    <option>Mascot</option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>
+                    الطابع
+                </label>
+
+                <select
+                    id="logoMood"
+                    class="input"
+                >
+                    <option>Luxury</option>
+                    <option>Gaming</option>
+                    <option>Sport</option>
+                    <option>Technology</option>
+                    <option>Minimal</option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>
+                    الشكل
+                </label>
+
+                <select
+                    id="logoShape"
+                    class="input"
+                >
+                    <option>Rounded</option>
+                    <option>Circle</option>
+                    <option>Shield</option>
+                    <option>Square</option>
+                </select>
+
+            </div>
+
+            <button
+                class="btn primary"
+                style="width:100%"
+                onclick="generateLogo()"
+            >
+                ✦ إنشاء الشعار
+            </button>
+
+        </div>
+
+        <div class="form-card result">
+
+            <div
+                class="logo-preview"
+                id="logoPreview"
+            >
+                H
+            </div>
+
+            <h3 id="logoTitle">
+                HAMID
+            </h3>
+
+            <p
+                id="logoDescription"
+                style="color:#7d879b;font-size:11px"
+            >
+                اضغط إنشاء الشعار.
+            </p>
+
+            <div
+                class="prompt"
+                id="logoPrompt"
+            >
+                سيظهر وصف التصميم هنا.
+            </div>
+
+            <button
+                class="btn"
+                onclick="downloadSVG()"
+            >
+                ↓ تصدير SVG
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+ FOOTBALL
+===================================================== -->
+
+<section class="page" id="football">
+
+    <div class="section-head">
+
+        <div>
+            <h2>⚽ Football Center</h2>
+            <p>ابحث عن النادي الذي تريده وشاهد مبارياته.</p>
+        </div>
+
+        <button
+            class="btn"
+            onclick="loadFootballFixtures()"
+        >
+            🔄 تحديث
+        </button>
+
+    </div>
+
+    <div class="football-top">
+
+        <div class="card">
+
+            <h3>🔎 البحث عن نادي</h3>
+
+            <p
+                style="color:#8993a7;font-size:12px;margin:8px 0 15px"
+            >
+                اكتب اسم النادي بالإنجليزي.
+            </p>
+
+            <div style="display:flex;gap:8px">
+
+                <input
+                    id="clubSearch"
+                    class="input"
+                    placeholder="Real Madrid"
+                    onkeydown="clubSearchEnter(event)"
+                >
+
+                <button
+                    class="btn primary"
+                    onclick="searchClub()"
+                >
+                    بحث
+                </button>
+
+            </div>
+
+            <div id="clubResults"></div>
+
+        </div>
+
+        <div class="card">
+
+            <div id="selectedClub">
+
+                <div style="font-size:55px">
+                    ⚽
+                </div>
+
+                <h2 style="margin-top:10px">
+                    اختر نادي
+                </h2>
+
+                <p
+                    style="color:#8993a7;margin-top:8px"
+                >
+                    ابحث عن أي نادي من البحث الموجود.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="section-head">
+
+        <div>
+            <h2>📅 المباريات</h2>
+
+            <p id="fixturesTitle">
+                اختر ناديًا لعرض مبارياته.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div id="fixturesList">
+
+            <div class="fixture-empty">
+                لم يتم اختيار نادي حتى الآن.
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+ FIVEM
+===================================================== -->
+
+<section class="page" id="fivem">
+
+    <div class="section-head">
+
+        <div>
+            <h2>FiveM Center</h2>
+            <p>مركز واحد لسيرفرك وموارد FiveM.</p>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div style="font-size:45px;margin-bottom:15px">
+            🟢
+        </div>
+
+        <h2>
+            FiveM Server Tools
+        </h2>
+
+        <p
+            style="color:#8993a7;line-height:1.9;margin:10px 0 20px"
+        >
+            أدوات وروابط FiveM التي تحتاجها.
+        </p>
+
+        <div class="hero-buttons">
+
+            <button
+                class="btn primary"
+                onclick="window.open('https://forum.cfx.re','_blank')"
+            >
+                Cfx.re Forum
+            </button>
+
+            <button
+                class="btn"
+                onclick="window.open('https://docs.fivem.net','_blank')"
+            >
+                FiveM Docs
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+ MANAGEMENT
+===================================================== -->
+
+<section class="page" id="management">
+
+    <div class="section-head">
+
+        <div>
+            <h2>👑 إدارة المتجر</h2>
+            <p>التقديم على الإدارة وإدارة الرتب والخصومات.</p>
+        </div>
+
+    </div>
+
+    <div class="workspace">
+
+        <div class="form-card">
+
+            <h3>
+                📝 التقديم على إدارة المتجر
+            </h3>
+
+            <p
+                style="color:#8993a7;font-size:12px;line-height:1.8;margin:8px 0 20px"
+            >
+                قدم طلبك للانضمام إلى إدارة المتجر.
+            </p>
+
+            <div class="form-group">
+
+                <label>اسمك</label>
+
+                <input
+                    id="applicationName"
+                    class="input"
+                    placeholder="اكتب اسمك"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>العمر</label>
+
+                <input
+                    id="applicationAge"
+                    class="input"
+                    type="number"
+                    placeholder="16"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>ليش تبي الإدارة؟</label>
+
+                <textarea
+                    id="applicationReason"
+                    class="input"
+                    placeholder="اكتب سبب تقديمك..."
+                ></textarea>
+
+            </div>
+
+            <button
+                class="btn primary"
+                style="width:100%"
+                onclick="submitApplication()"
+            >
+                إرسال الطلب
+            </button>
+
+        </div>
+
+        <div class="form-card">
+
+            <h3>
+                👥 رتب المتجر
+            </h3>
+
+            <div class="role-card">
+
+                <div>
+                    <strong>👑 إدارة</strong>
+
+                    <p
+                        style="color:#8993a7;font-size:11px;margin-top:4px"
+                    >
+                        تستطيع إدارة الأعضاء والخصومات.
+                    </p>
+                </div>
+
+                <span class="role-badge admin">
+                    ADMIN
+                </span>
+
+            </div>
+
+            <div class="role-card">
+
+                <div>
+                    <strong>⭐ عضو</strong>
+
+                    <p
+                        style="color:#8993a7;font-size:11px;margin-top:4px"
+                    >
+                        يمكنه الاستفادة من الخصم.
+                    </p>
+                </div>
+
+                <span class="role-badge member">
+                    MEMBER
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="section-head">
+
+        <div>
+            <h2>👤 إدارة الأعضاء</h2>
+            <p>أعطِ الأعضاء رتبة وحدد لهم الخصم.</p>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="workspace">
+
+            <div>
+
+                <div class="form-group">
+
+                    <label>اسم العضو</label>
+
+                    <input
+                        id="memberName"
+                        class="input"
+                        placeholder="مثال: Hamdan"
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>الرتبة</label>
+
+                    <select
+                        id="memberRole"
+                        class="input"
+                    >
+                        <option value="member">
+                            ⭐ عضو
+                        </option>
+
+                        <option value="admin">
+                            👑 إدارة
+                        </option>
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>الخصم %</label>
+
+                    <input
+                        id="memberDiscount"
+                        class="input"
+                        type="number"
+                        min="0"
+                        max="100"
+                        value="0"
+                    >
+
+                </div>
+
+                <button
+                    class="btn primary"
+                    style="width:100%"
+                    onclick="addMember()"
+                >
+                    + إضافة / تحديث العضو
+                </button>
+
+            </div>
+
+            <div>
+
+                <h3 style="margin-bottom:10px">
+                    الأعضاء
+                </h3>
+
+                <div id="membersList"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="section-head">
+
+        <div>
+            <h2>📨 الطلبات</h2>
+            <p>طلبات التقديم على إدارة المتجر.</p>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div id="applicationsList"></div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+ UAE
+===================================================== -->
+
+<section class="page" id="uae">
+
+    <div class="section-head">
+
+        <div>
+            <h2>UAE Hub 🇦🇪</h2>
+            <p>بوابة مختصرة للمصادر الإماراتية الرسمية.</p>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>
+            United Arab Emirates
+        </h2>
+
+        <p
+            style="color:#8993a7;line-height:1.9;margin:12px 0 20px"
+        >
+            الوصول السريع إلى البوابات الرسمية والخدمات الحكومية.
+        </p>
+
+        <button
+            class="btn primary"
+            onclick="window.open('https://u.ae','_blank')"
+        >
+            UAE Official Portal
+        </button>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+ SUPPORT
+===================================================== -->
+
+<section class="page" id="support">
+
+    <div class="section-head">
+
+        <div>
+            <h2>🎫 مركز الدعم</h2>
+            <p>مشكلة أو شكوى؟ افتح تذكرة.</p>
+        </div>
+
+    </div>
+
+    <div class="support-grid">
+
+        <div class="form-card">
+
+            <h3>
+                🎫 فتح تذكرة جديدة
+            </h3>
+
+            <p
+                style="color:#8993a7;font-size:11px;line-height:1.8;margin:7px 0 18px"
+            >
+                اشرح المشكلة بالتفصيل وسيتم تسجيلها داخل النظام.
+            </p>
+
+            <div class="form-group">
+
+                <label>
+                    نوع الطلب
+                </label>
+
+                <select
+                    id="ticketCategory"
+                    class="input"
+                >
+                    <option>شكوى</option>
+                    <option>مشكلة تقنية</option>
+                    <option>استفسار</option>
+                    <option>طلب مساعدة</option>
+                    <option>اقتراح</option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>
+                    الأولوية
+                </label>
+
+                <select
+                    id="ticketPriority"
+                    class="input"
+                >
+                    <option>عادية</option>
+                    <option>متوسطة</option>
+                    <option>عالية</option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>
+                    عنوان المشكلة
+                </label>
+
+                <input
+                    id="ticketSubject"
+                    class="input"
+                    placeholder="مثال: مشكلة في الطلب"
+                    maxlength="80"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>
+                    التفاصيل
+                </label>
+
+                <textarea
+                    id="ticketMessage"
+                    class="input"
+                    placeholder="اكتب تفاصيل المشكلة..."
+                    maxlength="1000"
+                ></textarea>
+
+            </div>
+
+            <button
+                class="btn primary"
+                style="width:100%"
+                onclick="createTicket()"
+            >
+                🚀 إرسال التذكرة
+            </button>
+
+        </div>
+
+        <div class="form-card">
+
+            <h3>
+                📋 تذاكري
+            </h3>
+
+            <div id="myTickets"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+ INQUIRIES
+===================================================== -->
+
+<section class="page" id="inquiries">
+
+    <div class="section-head">
+
+        <div>
+            <h2>💬 الاستفسارات</h2>
+            <p>أرسل استفسارك للإدارة.</p>
+        </div>
+
+    </div>
+
+    <div class="workspace">
+
+        <div class="form-card">
+
+            <h3>
+                ✉️ استفسار جديد
+            </h3>
+
+            <div class="form-group" style="margin-top:18px">
+
+                <label>
+                    الموضوع
+                </label>
+
+                <input
+                    id="inquirySubject"
+                    class="input"
+                    placeholder="عنوان الاستفسار"
+                    maxlength="80"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>
+                    رسالتك
+                </label>
+
+                <textarea
+                    id="inquiryMessage"
+                    class="input"
+                    placeholder="اكتب استفسارك هنا..."
+                    maxlength="1000"
+                ></textarea>
+
+            </div>
+
+            <button
+                class="btn primary"
+                style="width:100%"
+                onclick="createInquiry()"
+            >
+                إرسال الاستفسار
+            </button>
+
+        </div>
+
+        <div class="form-card">
+
+            <h3>
+                📬 استفساراتي
+            </h3>
+
+            <div id="myInquiries"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+ STUDENT
+===================================================== -->
+
+<section class="page" id="student">
+
+    <div class="section-head">
+
+        <div>
+            <h2>Student Center</h2>
+            <p>مهمة واحدة الآن — وأنجزها.</p>
+        </div>
+
+    </div>
+
+    <div class="workspace">
+
+        <div class="form-card">
+
+            <h3 style="margin-bottom:17px">
+                إضافة مهمة
+            </h3>
+
+            <div class="form-group">
+
+                <label>
+                    المهمة
+                </label>
+
+                <input
+                    id="taskInput"
+                    class="input"
+                    placeholder="مثال: حل واجب الرياضيات"
+                >
+
+            </div>
+
+            <button
+                class="btn primary"
+                style="width:100%"
+                onclick="addTask()"
+            >
+                + إضافة
+            </button>
+
+            <div
+                id="taskList"
+                style="margin-top:20px"
+            ></div>
+
+        </div>
+
+        <div class="form-card">
+
+            <h3 style="margin-bottom:17px">
+                حاسبة الدرجة
+            </h3>
+
+            <div class="form-group">
+
+                <label>
+                    درجتك
+                </label>
+
+                <input
+                    id="gradeGot"
+                    class="input"
+                    type="number"
+                    placeholder="85"
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>
+                    الدرجة الكاملة
+                </label>
+
+                <input
+                    id="gradeTotal"
+                    class="input"
+                    type="number"
+                    placeholder="100"
+                >
+
+            </div>
+
+            <button
+                class="btn primary"
+                onclick="calculateGrade()"
+            >
+                احسب
+            </button>
+
+            <h2
+                id="gradeResult"
+                style="margin-top:25px"
+            >
+                —
+            </h2>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+ STORE
+===================================================== -->
+
+<section class="page" id="store">
+
+    <div class="section-head">
+
+        <div>
+            <h2>HAMID Store</h2>
+            <p>منتجات رقمية داخل موقعك.</p>
+        </div>
+
+        <button
+            class="btn"
+            onclick="clearCart()"
+        >
+            تفريغ السلة
+        </button>
+
+    </div>
+
+    <div
+        class="card"
+        style="margin-bottom:18px"
+    >
+
+        <h3>
+            👤 حساب العميل
+        </h3>
+
+        <div
+            style="display:flex;gap:8px;margin-top:12px"
+        >
+
+            <input
+                id="storeMemberName"
+                class="input"
+                placeholder="اكتب اسمك"
+            >
+
+            <button
+                class="btn primary"
+                onclick="checkMemberDiscount()"
+            >
+                تحقق
+            </button>
+
+        </div>
+
+        <div
+            id="memberDiscountInfo"
+            style="margin-top:12px"
+        ></div>
+
+    </div>
+
+    <div class="grid products">
+
+        <div class="card product">
+
+            <div class="product-img">
+                🎨
+            </div>
+
+            <div class="product-body">
+
+                <h3>
+                    Logo Pack
+                </h3>
+
+                <p
+                    style="color:#7d879b;font-size:12px"
+                >
+                    مجموعة أفكار شعارات.
+                </p>
+
+                <div class="price">
+                    AED 15
+                </div>
+
+                <button
+                    class="btn primary"
+                    onclick="addCart('Logo Pack',15)"
+                >
+                    أضف للسلة
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="card product">
+
+            <div class="product-img">
+                💻
+            </div>
+
+            <div class="product-body">
+
+                <h3>
+                    UI Pack
+                </h3>
+
+                <p
+                    style="color:#7d879b;font-size:12px"
+                >
+                    عناصر واجهة رقمية.
+                </p>
+
+                <div class="price">
+                    AED 25
+                </div>
+
+                <button
+                    class="btn primary"
+                    onclick="addCart('UI Pack',25)"
+                >
+                    أضف للسلة
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="card product">
+
+            <div class="product-img">
+                🔥
+            </div>
+
+            <div class="product-body">
+
+                <h3>
+                    Ultimate Pack
+                </h3>
+
+                <p
+                    style="color:#7d879b;font-size:12px"
+                >
+                    الباقة الكاملة.
+                </p>
+
+                <div class="price">
+                    AED 50
+                </div>
+
+                <button
+                    class="btn primary"
+                    onclick="addCart('Ultimate Pack',50)"
+                >
+                    أضف للسلة
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div
+        class="card"
+        style="margin-top:18px"
+    >
+
+        <h3>
+            🛒 السلة
+        </h3>
+
+        <div
+            id="cartList"
+            style="margin-top:15px"
+        ></div>
+
+        <h2
+            id="cartTotal"
+            style="margin-top:15px"
+        >
+            AED 0
+        </h2>
+
+        <div
+            id="cartDiscount"
+            style="margin-top:8px"
+        ></div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+ DASHBOARD
+===================================================== -->
+
+<section class="page" id="dashboard">
+
+    <div class="section-head">
+
+        <div>
+            <h2>Dashboard</h2>
+            <p>بيانات HAMID HUB المحلية.</p>
+        </div>
+
+    </div>
+
+    <div class="grid stats">
+
+        <div class="card stat">
+
+            <small>
+                Actions
+            </small>
+
+            <strong id="dashActions">
+                0
+            </strong>
+
+        </div>
+
+        <div class="card stat">
+
+            <small>
+                Saved Logos
+            </small>
+
+            <strong id="dashLogos">
+                0
+            </strong>
+
+        </div>
+
+        <div class="card stat">
+
+            <small>
+                Tasks
+            </small>
+
+            <strong id="dashTasks">
+                0
+            </strong>
+
+        </div>
+
+        <div class="card stat">
+
+            <small>
+                Cart Items
+            </small>
+
+            <strong id="dashCart">
+                0
+            </strong>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+ ADMIN
+===================================================== -->
+
+<section class="page" id="admin">
+
+    <div class="section-head">
+
+        <div>
+            <h2>👑 Admin Center</h2>
+            <p>مركز الإدارة المحلي — للتجربة على هذا الجهاز.</p>
+        </div>
+
+        <span class="role-badge admin">
+            ADMIN MODE
+        </span>
+
+    </div>
+
+    <div
+        class="card"
+        style="margin-bottom:15px"
+    >
+
+        <div class="admin-tabs">
+
+            <button
+                class="admin-tab active"
+                onclick="adminTab('tickets',this)"
+            >
+                🎫 التذاكر
+            </button>
+
+            <button
+                class="admin-tab"
+                onclick="adminTab('inquiriesAdmin',this)"
+            >
+                💬 الاستفسارات
+            </button>
+
+            <button
+                class="admin-tab"
+                onclick="adminTab('applicationsAdmin',this)"
+            >
+                📝 الطلبات
+            </button>
+
+            <button
+                class="admin-tab"
+                onclick="adminTab('membersAdmin',this)"
+            >
+                👥 الأعضاء
+            </button>
+
+        </div>
+
+    </div>
+
+    <div
+        class="card admin-panel active"
+        id="admin-tickets"
+    >
+
+        <h3>
+            🎫 جميع التذاكر
+        </h3>
+
+        <div id="adminTicketsList"></div>
+
+    </div>
+
+    <div
+        class="card admin-panel"
+        id="admin-inquiriesAdmin"
+    >
+
+        <h3>
+            💬 جميع الاستفسارات
+        </h3>
+
+        <div id="adminInquiriesList"></div>
+
+    </div>
+
+    <div
+        class="card admin-panel"
+        id="admin-applicationsAdmin"
+    >
+
+        <h3>
+            📝 طلبات الإدارة
+        </h3>
+
+        <div id="adminApplicationsList"></div>
+
+    </div>
+
+    <div
+        class="card admin-panel"
+        id="admin-membersAdmin"
+    >
+
+        <h3>
+            👥 أعضاء المتجر
+        </h3>
+
+        <div id="adminMembersList"></div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+ SETTINGS
+===================================================== -->
+
+<section class="page" id="settings">
+
+    <div class="section-head">
+
+        <div>
+            <h2>Settings</h2>
+            <p>تحكم في تجربة HAMID HUB X.</p>
+        </div>
+
+    </div>
+
+    <div class="card settings">
+
+        <div class="setting-row">
+
+            <div>
+                <b>
+                    اسم المستخدم
+                </b>
+
+                <span>
+                    يظهر داخل التطبيق.
+                </span>
+            </div>
+
+            <input
+                id="username"
+                class="input"
+                style="width:220px"
+                placeholder="Hamdan"
+                onchange="saveSettings()"
+            >
+
+        </div>
+
+        <div class="setting-row">
+
+            <div>
+                <b>
+                    لون النظام
+                </b>
+
+                <span>
+                    غير اللون الرئيسي.
+                </span>
+            </div>
+
+            <input
+                id="accent"
+                class="color-input"
+                type="color"
+                value="#795cff"
+                onchange="changeAccent(this.value)"
+            >
+
+        </div>
+
+        <div class="setting-row">
+
+            <div>
+                <b>
+                    صوت النظام
+                </b>
+
+                <span>
+                    أصوات الدخول والتفاعل والشهب.
+                </span>
+            </div>
+
+            <label class="switch">
+
+                <input
+                    type="checkbox"
+                    id="soundToggle"
+                    onchange="toggleSound(this.checked)"
+                >
+
+                <span class="slider"></span>
+
+            </label>
+
+        </div>
+
+        <div class="setting-row">
+
+            <div>
+                <b>
+                    إعادة الترحيب
+                </b>
+
+                <span>
+                    إظهار شاشة الاسم والجنس من جديد.
+                </span>
+            </div>
+
+            <button
+                class="btn"
+                onclick="showWelcomeAgain()"
+            >
+                إعادة
+            </button>
+
+        </div>
+
+        <div class="setting-row">
+
+            <div>
+                <b>
+                    إعادة ضبط
+                </b>
+
+                <span>
+                    حذف البيانات المحلية للموقع.
+                </span>
+            </div>
+
+            <button
+                class="btn danger"
+                onclick="resetApp()"
+            >
+                Reset
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+</div>
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+<script>
+
+/* =====================================================
+   CORE
+===================================================== */
+
+const $ = id => document.getElementById(id);
+
+let actions =
+    Number(localStorage.getItem("hh_actions") || 0);
+
+let logos =
+    JSON.parse(localStorage.getItem("hh_logos") || "[]");
+
+let tasks =
+    JSON.parse(localStorage.getItem("hh_tasks") || "[]");
+
+let cart =
+    JSON.parse(localStorage.getItem("hh_cart") || "[]");
+
+let members =
+    JSON.parse(localStorage.getItem("hh_members") || "[]");
+
+let applications =
+    JSON.parse(localStorage.getItem("hh_applications") || "[]");
+
+let tickets =
+    JSON.parse(localStorage.getItem("hh_tickets") || "[]");
+
+let inquiries =
+    JSON.parse(localStorage.getItem("hh_inquiries") || "[]");
+
+let selectedClubId = null;
+
+let currentDiscount = 0;
+
+let selectedGender = null;
+
+let soundEnabled =
+    localStorage.getItem("hh_sound") !== "false";
+
+let audioContext = null;
+
+/* =====================================================
+   ESCAPE
+===================================================== */
+
+function escapeHTML(str){
+
+    return String(str).replace(/[&<>"']/g,m=>({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+    }[m]));
+
+}
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function toast(text){
+
+    const el=$("toast");
+
+    el.textContent=text;
+
+    el.classList.add("show");
+
+    clearTimeout(window.toastTimer);
+
+    window.toastTimer=setTimeout(()=>{
+        el.classList.remove("show");
+    },2400);
+
+}
+
+/* =====================================================
+   SOUND ENGINE
+===================================================== */
+
+function initAudio(){
+
+    if(!soundEnabled) return;
+
+    try{
+
+        if(!audioContext){
+
+            audioContext =
+                new (window.AudioContext ||
+                window.webkitAudioContext)();
+
+        }
+
+        if(audioContext.state==="suspended"){
+            audioContext.resume();
+        }
+
+    }catch(e){}
+
+}
+
+function playTone(
+    frequency=440,
+    duration=.08,
+    type="sine",
+    volume=.035
+){
+
+    if(!soundEnabled) return;
+
+    initAudio();
+
+    if(!audioContext) return;
+
+    try{
+
+        const osc=
+            audioContext.createOscillator();
+
+        const gain=
+            audioContext.createGain();
+
+        osc.type=type;
+        osc.frequency.value=frequency;
+
+        gain.gain.setValueAtTime(
+            volume,
+            audioContext.currentTime
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            .001,
+            audioContext.currentTime+duration
+        );
+
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+
+        osc.start();
+        osc.stop(
+            audioContext.currentTime+duration
+        );
+
+    }catch(e){}
+
+}
+
+function playWelcomeSound(){
+
+    playTone(392,.10,"sine",.04);
+
+    setTimeout(()=>{
+        playTone(523,.12,"sine",.04);
+    },100);
+
+    setTimeout(()=>{
+        playTone(659,.16,"sine",.035);
+    },210);
+
+}
+
+function toggleSound(value){
+
+    soundEnabled=value;
+
+    localStorage.setItem(
+        "hh_sound",
+        value
+    );
+
+    if(value){
+
+        initAudio();
+
+        playTone(
+            620,
+            .12,
+            "sine",
+            .04
+        );
+
+        toast("تم تشغيل صوت النظام 🔊");
+
+    }else{
+
+        toast("تم إيقاف صوت النظام 🔇");
+
+    }
+
+}
+
+/* =====================================================
+   WELCOME
+===================================================== */
+
+function selectGender(gender){
+
+    selectedGender=gender;
+
+    $("maleBtn").classList.toggle(
+        "selected",
+        gender==="male"
+    );
+
+    $("femaleBtn").classList.toggle(
+        "selected",
+        gender==="female"
+    );
+
+    playTone(
+        gender==="male" ? 480 : 560,
+        .07,
+        "sine",
+        .025
+    );
+
+}
+
+function enterHub(){
+
+    const name=
+        $("welcomeName").value.trim();
+
+    if(!name){
+
+        toast("اكتب اسمك أولاً");
+
+        $("welcomeName").focus();
+
+        return;
+    }
+
+    if(!selectedGender){
+
+        toast("اختر ولد أو بنت");
+
+        return;
+    }
+
+    initAudio();
+
+    const profile={
+        name:name,
+        gender:selectedGender,
+        createdAt:new Date().toISOString()
+    };
+
+    localStorage.setItem(
+        "hh_profile",
+        JSON.stringify(profile)
+    );
+
+    playWelcomeSound();
+
+    setupProfile();
+
+    $("welcomeScreen").classList.add("hidden");
+
+    $("app").classList.add("ready");
+
+    toast(
+        `هلا ${name} 👋 نورت HAMID HUB X`
+    );
+
+}
+
+function showWelcomeAgain(){
+
+    $("welcomeScreen").classList.remove("hidden");
+
+    $("app").classList.remove("ready");
+
+    const profile=
+        JSON.parse(
+            localStorage.getItem("hh_profile") || "null"
+        );
+
+    if(profile){
+
+        $("welcomeName").value=
+            profile.name || "";
+
+        selectGender(
+            profile.gender || "male"
+        );
+
+    }
+
+}
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+function setupProfile(){
+
+    const profile=
+        JSON.parse(
+            localStorage.getItem("hh_profile") || "null"
+        );
+
+    const username=
+        localStorage.getItem("hh_username");
+
+    if(!profile && !username) return;
+
+    const name=
+        username ||
+        profile?.name ||
+        "Hamdan";
+
+    $("topName").textContent=name;
+
+    $("topAvatar").textContent=
+        name.charAt(0).toUpperCase();
+
+    $("heroUserName").textContent=
+        `يا ${name}`;
+
+    $("username").value=name;
+
+}
+
+/* =====================================================
+   ACTION
+===================================================== */
+
+function action(){
+
+    actions++;
+
+    localStorage.setItem(
+        "hh_actions",
+        actions
+    );
+
+    updateStats();
+
+}
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function showPage(id,button){
+
+    document.querySelectorAll(".page")
+        .forEach(p=>p.classList.remove("active"));
+
+    const page=$(id);
+
+    if(!page) return;
+
+    page.classList.add("active");
+
+    document.querySelectorAll(".nav button")
+        .forEach(b=>b.classList.remove("active"));
+
+    if(button){
+
+        button.classList.add("active");
+
+    }else{
+
+        const target=
+            [...document.querySelectorAll(".nav button")]
+            .find(b=>
+                b.getAttribute("onclick") &&
+                b.getAttribute("onclick").includes(
+                    `'${id}'`
+                )
+            );
+
+        if(target){
+            target.classList.add("active");
+        }
+
+    }
+
+    if(id==="support"){
+        renderMyTickets();
+    }
+
+    if(id==="inquiries"){
+        renderMyInquiries();
+    }
+
+    if(id==="admin"){
+        renderAdmin();
+    }
+
+    action();
+
+    if(window.innerWidth<=800){
+        $("sidebar").classList.remove("open");
+    }
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+    playTone(420,.035,"sine",.012);
+
+}
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+function toggleSidebar(){
+
+    $("sidebar").classList.toggle("open");
+
+}
+
+/* =====================================================
+   FULLSCREEN
+===================================================== */
+
+function toggleFullscreen(){
+
+    if(!document.fullscreenElement){
+
+        document.documentElement.requestFullscreen();
+
+    }else{
+
+        document.exitFullscreen();
+
+    }
+
+}
+
+/* =====================================================
+   GLOBAL SEARCH
+===================================================== */
+
+function globalSearch(e){
+
+    if(e.key!=="Enter") return;
+
+    const q=e.target.value.trim();
+
+    if(!q) return;
+
+    $("searchInput").value=q;
+
+    showPage("search");
+
+    doSearch("google");
+
+}
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+function searchEnter(e){
+
+    if(e.key==="Enter"){
+        doSearch("google");
+    }
+
+}
+
+function doSearch(type){
+
+    const q=
+        $("searchInput").value.trim();
+
+    if(!q){
+
+        toast("اكتب شيء للبحث أولاً");
+
+        return;
+    }
+
+    action();
+
+    let url="";
+
+    if(type==="google"){
+
+        url=
+            "https://www.google.com/search?q="+
+            encodeURIComponent(q);
+
+    }
+
+    if(type==="youtube"){
+
+        url=
+            "https://www.youtube.com/results?search_query="+
+            encodeURIComponent(q);
+
+    }
+
+    if(type==="images"){
+
+        url=
+            "https://www.google.com/search?tbm=isch&q="+
+            encodeURIComponent(q);
+
+    }
+
+    window.open(url,"_blank");
+
+}
+
+/* =====================================================
+   AI
+===================================================== */
+
+function aiEnter(e){
+
+    if(e.key==="Enter"){
+        sendAI();
+    }
+
+}
+
+function sendAI(){
+
+    const input=$("aiInput");
+
+    const text=input.value.trim();
+
+    if(!text) return;
+
+    const messages=$("messages");
+
+    messages.innerHTML+=`
+        <div class="message user">
+            ${escapeHTML(text)}
+        </div>
+    `;
+
+    input.value="";
+
+    action();
+
+    playTone(500,.04,"sine",.015);
+
+    messages.scrollTop=
+        messages.scrollHeight;
+
+    setTimeout(()=>{
+
+        let reply=
+            "وصلتني رسالتك 👍 أنا HAMID AI المحلي.";
+
+        const t=
+            text.toLowerCase();
+
+        if(
+            t.includes("السلام") ||
+            t.includes("hello") ||
+            t.includes("hi")
+        ){
+
+            reply=
+                "وعليكم السلام ورحمة الله وبركاته 🤍 شخبارك؟ شو تباني أساعدك فيه؟";
+
+        }
+
+        else if(
+            t.includes("ريال") ||
+            t.includes("مدريد")
+        ){
+
+            reply=
+                "هلا بالمدريدي 😎⚪ إذا تبي معلومات أو مقارنة عن ريال مدريد اكتب لي طلبك.";
+
+        }
+
+        else if(
+            t.includes("بايثون") ||
+            t.includes("python")
+        ){
+
+            reply=
+                "أكيد 🔥 أقدر أساعدك في Python أو PyCharm. أرسل لي الكود أو السؤال.";
+
+        }
+
+        else if(
+            t.includes("دراسة") ||
+            t.includes("واجب") ||
+            t.includes("مدرسة")
+        ){
+
+            reply=
+                "أرسل السؤال أو صورة الواجب وأنا أساعدك فيه خطوة بخطوة 📚.";
+
+        }
+
+        else if(
+            t.includes("تذكرة") ||
+            t.includes("شكوى") ||
+            t.includes("مشكلة")
+        ){
+
+            reply=
+                "إذا عندك مشكلة، افتح قسم 🎫 الدعم والتذاكر واكتب التفاصيل، وبتتسجل عندك مباشرة.";
+
+        }
+
+        else if(
+            t.includes("اسم") ||
+            t.includes("من انت")
+        ){
+
+            reply=
+                "أنا HAMID AI 🤖 مساعد داخل HAMID HUB X. النسخة الحالية محلية، ونقدر نربطها بذكاء اصطناعي حقيقي لاحقًا.";
+
+        }
+
+        messages.innerHTML+=`
+            <div class="message ai">
+                ${reply}
+            </div>
+        `;
+
+        messages.scrollTop=
+            messages.scrollHeight;
+
+        playTone(660,.06,"sine",.015);
+
+    },500);
+
+}
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+function generateLogo(){
+
+    const name=
+        $("brandName").value.trim() ||
+        "HAMID";
+
+    const type=$("logoType").value;
+    const mood=$("logoMood").value;
+    const shape=$("logoShape").value;
+
+    let initials=
+        name
+        .split(/\s+/)
+        .map(x=>x[0])
+        .join("")
+        .slice(0,3)
+        .toUpperCase();
+
+    let radius="45px";
+
+    if(shape==="Circle"){
+        radius="50%";
+    }
+
+    if(shape==="Square"){
+        radius="10px";
+    }
+
+    if(shape==="Shield"){
+        radius="25px 25px 45px 45px";
+    }
+
+    $("logoPreview").textContent=
+        initials;
+
+    $("logoPreview").style.borderRadius=
+        radius;
+
+    $("logoTitle").textContent=
+        name;
+
+    $("logoDescription").textContent=
+        `${type} • ${mood} • ${shape}`;
+
+    const prompt=
+        `Professional ${mood} ${type} logo for "${name}", `+
+        `${shape} composition, premium modern identity, `+
+        `clean geometry, strong typography, scalable vector style.`;
+
+    $("logoPrompt").textContent=
+        prompt;
+
+    logos.push({
+        name,
+        type,
+        mood,
+        shape,
+        initials,
+        prompt,
+        date:new Date().toLocaleString()
+    });
+
+    localStorage.setItem(
+        "hh_logos",
+        JSON.stringify(logos)
+    );
+
+    action();
+
+    playTone(600,.08,"triangle",.025);
+
+    toast("تم إنشاء الشعار ✦");
+
+}
+
+/* =====================================================
+   SVG
+===================================================== */
+
+function downloadSVG(){
+
+    const text=
+        $("logoPreview").textContent;
+
+    const title=
+        $("logoTitle").textContent;
+
+    const safeText=
+        escapeHTML(text);
+
+    const safeTitle=
+        escapeHTML(title);
+
+    const svg=`
+<svg xmlns="http://www.w3.org/2000/svg"
+width="600"
+height="600"
+viewBox="0 0 600 600">
+
+<defs>
+
+<linearGradient
+id="g"
+x1="0%"
+y1="0%"
+x2="100%"
+y2="100%">
+
+<stop offset="0%" stop-color="#795cff"/>
+<stop offset="100%" stop-color="#00d9ff"/>
+
+</linearGradient>
+
+</defs>
+
+<rect
+width="600"
+height="600"
+rx="100"
+fill="#05070c"/>
+
+<rect
+x="90"
+y="90"
+width="420"
+height="420"
+rx="90"
+fill="url(#g)"/>
+
+<text
+x="300"
+y="340"
+text-anchor="middle"
+font-family="Arial"
+font-size="150"
+font-weight="800"
+fill="white">${safeText}</text>
+
+<text
+x="300"
+y="465"
+text-anchor="middle"
+font-family="Arial"
+font-size="35"
+fill="white"
+opacity=".85">${safeTitle}</text>
+
+</svg>`;
+
+    const blob=
+        new Blob(
+            [svg],
+            {type:"image/svg+xml"}
+        );
+
+    const url=
+        URL.createObjectURL(blob);
+
+    const a=
+        document.createElement("a");
+
+    a.href=url;
+
+    a.download=
+        (title||"hamid-logo")+".svg";
+
+    a.click();
+
+    URL.revokeObjectURL(url);
+
+    action();
+
+    toast("تم تصدير SVG");
+
+}
+
+/* =====================================================
+ FOOTBALL — ORIGINAL LOGIC
+===================================================== */
+
+function clubSearchEnter(e){
+
+    if(e.key==="Enter"){
+        searchClub();
+    }
+
+}
+
+async function searchClub(){
+
+    const query=
+        $("clubSearch").value.trim();
+
+    if(!query){
+
+        toast("اكتب اسم النادي");
+
+        return;
+    }
+
+    const results=
+        $("clubResults");
+
+    results.innerHTML=
+        `<p style="color:#8993a7;font-size:12px;margin-top:15px">
+            🔎 جاري البحث...
+        </p>`;
+
+    try{
+
+        const response=
+            await fetch(
+                "https://www.thesportsdb.com/api/v1/json/123/searchteams.php?t="+
+                encodeURIComponent(query)
+            );
+
+        const data=
+            await response.json();
+
+        if(
+            !data.teams ||
+            !data.teams.length
+        ){
+
+            results.innerHTML=
+                `<p style="color:#8993a7;font-size:12px;margin-top:15px">
+                    لم يتم العثور على النادي.
+                </p>`;
+
+            return;
+        }
+
+        results.innerHTML=
+            data.teams
+            .slice(0,8)
+            .map(team=>{
+
+                const id=
+                    escapeHTML(team.idTeam || "");
+
+                const name=
+                    escapeHTML(team.strTeam || "Unknown");
+
+                const badge=
+                    escapeHTML(team.strTeamBadge || "");
+
+                const league=
+                    escapeHTML(team.strLeague || "Football");
+
+                return `
+
+                    <div
+                        class="club-result"
+                        data-id="${id}"
+                        data-name="${name}"
+                        data-badge="${badge}"
+                    >
+
+                        ${
+                            badge
+                            ?
+                            `<img
+                                class="club-logo"
+                                src="${badge}"
+                                alt=""
+                            >`
+                            :
+                            `<div class="club-logo">⚽</div>`
+                        }
+
+                        <div>
+
+                            <strong>
+                                ${name}
+                            </strong>
+
+                            <p style="
+                                color:#8993a7;
+                                font-size:11px;
+                                margin-top:3px
+                            ">
+                                ${league}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            })
+            .join("");
+
+        results
+            .querySelectorAll(".club-result")
+            .forEach(el=>{
+
+                el.addEventListener(
+                    "click",
+                    ()=>selectClub(
+                        el.dataset.id,
+                        el.dataset.name,
+                        el.dataset.badge
+                    )
+                );
+
+            });
+
+    }catch(error){
+
+        results.innerHTML=
+            `<p style="color:#ff7b9a;font-size:12px;margin-top:15px">
+                حدث خطأ أثناء جلب الأندية.
+            </p>`;
+
+    }
+
+}
+
+async function selectClub(
+    id,
+    name,
+    badge
+){
+
+    selectedClubId=id;
+
+    $("selectedClub").innerHTML=`
+
+        <div style="
+            display:flex;
+            align-items:center;
+            gap:15px
+        ">
+
+            ${
+                badge
+                ?
+                `<img
+                    class="club-logo"
+                    src="${escapeHTML(badge)}"
+                    style="width:75px;height:75px"
+                >`
+                :
+                `<div style="font-size:55px">⚽</div>`
+            }
+
+            <div>
+
+                <h2>
+                    ${escapeHTML(name)}
+                </h2>
+
+                <p style="
+                    color:#8993a7;
+                    font-size:12px;
+                    margin-top:5px
+                ">
+                    النادي المحدد
+                </p>
+
+            </div>
+
+        </div>
+
+    `;
+
+    $("fixturesTitle").textContent=
+        `مباريات ${name}`;
+
+    await loadFootballFixtures();
+
+    action();
+
+}
+
+async function loadFootballFixtures(){
+
+    const list=
+        $("fixturesList");
+
+    if(!selectedClubId){
+
+        list.innerHTML=
+            `<div class="fixture-empty">
+                اختر ناديًا أولاً.
+            </div>`;
+
+        return;
+    }
+
+    list.innerHTML=
+        `<div class="fixture-empty">
+            🔄 جاري تحميل المباريات...
+        </div>`;
+
+    try{
+
+        const response=
+            await fetch(
+                "https://www.thesportsdb.com/api/v1/json/123/eventsnext.php?id="+
+                encodeURIComponent(selectedClubId)
+            );
+
+        const data=
+            await response.json();
+
+        const events=
+            data.events || [];
+
+        if(!events.length){
+
+            list.innerHTML=
+                `<div class="fixture-empty">
+                    لا توجد مباريات قادمة متاحة حالياً.
+                </div>`;
+
+            return;
+        }
+
+        list.innerHTML=
+            events
+            .slice(0,15)
+            .map(event=>{
+
+                const date=
+                    event.dateEvent ||
+                    "غير محدد";
+
+                const time=
+                    event.strTime
+                    ?
+                    event.strTime.slice(0,5)
+                    :
+                    "غير محدد";
+
+                return `
+
+                    <div class="match-card">
+
+                        <div class="match-team">
+
+                            ${
+                                event.strHomeTeamBadge
+                                ?
+                                `<img
+                                    src="${escapeHTML(event.strHomeTeamBadge)}"
+                                    alt=""
+                                >`
+                                :
+                                `⚽`
+                            }
+
+                            <strong>
+                                ${escapeHTML(event.strHomeTeam || "")}
+                            </strong>
+
+                        </div>
+
+                        <div class="match-vs">
+
+                            <b>
+                                ${escapeHTML(date)}
+                            </b>
+
+                            <span>
+                                ${escapeHTML(time)}
+                            </span>
+
+                            <small style="
+                                display:block;
+                                color:#8993a7;
+                                margin-top:6px
+                            ">
+                                ${escapeHTML(event.strLeague || "")}
+                            </small>
+
+                        </div>
+
+                        <div class="match-team">
+
+                            ${
+                                event.strAwayTeamBadge
+                                ?
+                                `<img
+                                    src="${escapeHTML(event.strAwayTeamBadge)}"
+                                    alt=""
+                                >`
+                                :
+                                `⚽`
+                            }
+
+                            <strong>
+                                ${escapeHTML(event.strAwayTeam || "")}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            })
+            .join("");
+
+    }catch(error){
+
+        list.innerHTML=
+            `<div class="fixture-empty">
+                ❌ تعذر تحميل المباريات.
+            </div>`;
+
+    }
+
+}
+
+/* =====================================================
+ MANAGEMENT APPLICATIONS
+===================================================== */
+
+function submitApplication(){
+
+    const name=
+        $("applicationName").value.trim();
+
+    const age=
+        $("applicationAge").value.trim();
+
+    const reason=
+        $("applicationReason").value.trim();
+
+    if(!name || !age || !reason){
+
+        toast("عبّئ جميع البيانات");
+
+        return;
+    }
+
+    const profile=
+        JSON.parse(
+            localStorage.getItem("hh_profile") || "null"
+        );
+
+    applications.push({
+
+        id:Date.now(),
+
+        name,
+        age,
+        reason,
+
+        user:
+            profile?.name || name,
+
+        status:"قيد المراجعة",
+
+        date:new Date().toLocaleString()
+
+    });
+
+    localStorage.setItem(
+        "hh_applications",
+        JSON.stringify(applications)
+    );
+
+    $("applicationName").value="";
+    $("applicationAge").value="";
+    $("applicationReason").value="";
+
+    renderApplications();
+    renderAdmin();
+
+    action();
+
+    toast("تم إرسال طلبك 📝");
+
+}
+
+/* =====================================================
+ MEMBERS
+===================================================== */
+
+function addMember(){
+
+    const name=
+        $("memberName").value.trim();
+
+    const role=
+        $("memberRole").value;
+
+    let discount=
+        Number(
+            $("memberDiscount").value || 0
+        );
+
+    if(!name){
+
+        toast("اكتب اسم العضو");
+
+        return;
+    }
+
+    if(discount<0) discount=0;
+
+    if(discount>100) discount=100;
+
+    const existing=
+        members.find(
+            m=>
+                m.name.toLowerCase()===
+                name.toLowerCase()
+        );
+
+    if(existing){
+
+        existing.role=role;
+        existing.discount=discount;
+
+        toast("تم تحديث العضو");
+
+    }else{
+
+        members.push({
+            name,
+            role,
+            discount
+        });
+
+        toast("تمت إضافة العضو");
+
+    }
+
+    localStorage.setItem(
+        "hh_members",
+        JSON.stringify(members)
+    );
+
+    $("memberName").value="";
+    $("memberDiscount").value="0";
+
+    renderMembers();
+    renderAdmin();
+
+    action();
+
+}
+
+function renderMembers(){
+
+    const box=
+        $("membersList");
+
+    if(!members.length){
+
+        box.innerHTML=
+            `<p style="color:#687286;font-size:12px">
+                لا يوجد أعضاء.
+            </p>`;
+
+        return;
+    }
+
+    box.innerHTML=
+        members
+        .map((member,index)=>`
+
+            <div class="role-card">
+
+                <div>
+
+                    <strong>
+                        ${escapeHTML(member.name)}
+                    </strong>
+
+                    <div style="margin-top:7px">
+
+                        <span class="role-badge ${
+                            member.role==="admin"
+                            ?
+                            "admin"
+                            :
+                            "member"
+                        }">
+
+                            ${
+                                member.role==="admin"
+                                ?
+                                "👑 إدارة"
+                                :
+                                "⭐ عضو"
+                            }
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div style="text-align:left">
+
+                    <strong style="color:#42e9aa">
+                        ${member.discount}%
+                    </strong>
+
+                    <div style="
+                        color:#8993a7;
+                        font-size:10px
+                    ">
+                        خصم
+                    </div>
+
+                    <button
+                        class="btn danger"
+                        style="
+                            padding:6px 9px;
+                            margin-top:7px
+                        "
+                        onclick="deleteMember(${index})"
+                    >
+                        حذف
+                    </button>
+
+                </div>
+
+            </div>
+
+        `)
+        .join("");
+
+}
+
+function deleteMember(index){
+
+    members.splice(index,1);
+
+    localStorage.setItem(
+        "hh_members",
+        JSON.stringify(members)
+    );
+
+    renderMembers();
+    renderAdmin();
+
+    action();
+
+    toast("تم حذف العضو");
+
+}
+
+/* =====================================================
+ DISCOUNT
+===================================================== */
+
+function checkMemberDiscount(){
+
+    const name=
+        $("storeMemberName").value.trim();
+
+    if(!name){
+
+        toast("اكتب اسمك");
+
+        return;
+    }
+
+    const member=
+        members.find(
+            m=>
+                m.name.toLowerCase()===
+                name.toLowerCase()
+        );
+
+    if(!member){
+
+        currentDiscount=0;
+
+        $("memberDiscountInfo").innerHTML=
+            `<div style="
+                padding:12px;
+                border-radius:12px;
+                background:rgba(255,77,112,.07);
+                color:#ff7b9a;
+            ">
+                لم يتم العثور على العضو. لا يوجد خصم.
+            </div>`;
+
+        renderCart();
+
+        return;
+    }
+
+    currentDiscount=
+        Number(member.discount || 0);
+
+    $("memberDiscountInfo").innerHTML=
+        `<div class="discount-box">
+
+            ${
+                member.role==="admin"
+                ?
+                "👑"
+                :
+                "⭐"
+            }
+
+            <strong>
+                ${escapeHTML(member.name)}
+            </strong>
+
+            <br>
+
+            الرتبة:
+            ${
+                member.role==="admin"
+                ?
+                "إدارة"
+                :
+                "عضو"
+            }
+
+            <br>
+
+            خصمك:
+            <strong>
+                ${currentDiscount}%
+            </strong>
+
+        </div>`;
+
+    renderCart();
+
+    toast("تم تفعيل الخصم");
+
+}
+
+/* =====================================================
+ APPLICATIONS
+===================================================== */
+
+function renderApplications(){
+
+    const box=
+        $("applicationsList");
+
+    if(!applications.length){
+
+        box.innerHTML=
+            `<p style="color:#687286;font-size:12px">
+                لا توجد طلبات حالياً.
+            </p>`;
+
+        return;
+    }
+
+    box.innerHTML=
+        applications
+        .map((app,index)=>`
+
+            <div class="application">
+
+                <div style="
+                    display:flex;
+                    justify-content:space-between;
+                    gap:15px
+                ">
+
+                    <div>
+
+                        <h3>
+                            ${escapeHTML(app.name)}
+                        </h3>
+
+                        <p style="
+                            color:#8993a7;
+                            font-size:11px;
+                            margin-top:5px
+                        ">
+                            العمر: ${escapeHTML(app.age)}
+                        </p>
+
+                    </div>
+
+                    <span class="status">
+                        ${escapeHTML(app.status)}
+                    </span>
+
+                </div>
+
+                <p style="
+                    color:#a4adbf;
+                    font-size:12px;
+                    line-height:1.8;
+                    margin-top:13px
+                ">
+                    ${escapeHTML(app.reason)}
+                </p>
+
+                <p style="
+                    color:#687286;
+                    font-size:10px;
+                    margin-top:10px
+                ">
+                    ${escapeHTML(app.date)}
+                </p>
+
+                <div
+                    class="hero-buttons"
+                    style="margin-top:12px"
+                >
+
+                    <button
+                        class="btn success"
+                        onclick="approveApplication(${index})"
+                    >
+                        قبول
+                    </button>
+
+                    <button
+                        class="btn danger"
+                        onclick="rejectApplication(${index})"
+                    >
+                        رفض
+                    </button>
+
+                </div>
+
+            </div>
+
+        `)
+        .join("");
+
+}
+
+function approveApplication(index){
+
+    applications[index].status=
+        "تم القبول";
+
+    localStorage.setItem(
+        "hh_applications",
+        JSON.stringify(applications)
+    );
+
+    renderApplications();
+    renderAdmin();
+
+    toast("تم قبول الطلب 👑");
+
+}
+
+function rejectApplication(index){
+
+    applications[index].status=
+        "تم الرفض";
+
+    localStorage.setItem(
+        "hh_applications",
+        JSON.stringify(applications)
+    );
+
+    renderApplications();
+    renderAdmin();
+
+    toast("تم رفض الطلب");
+
+}
+
+/* =====================================================
+ TICKETS
+===================================================== */
+
+function createTicket(){
+
+    const category=
+        $("ticketCategory").value;
+
+    const priority=
+        $("ticketPriority").value;
+
+    const subject=
+        $("ticketSubject").value.trim();
+
+    const message=
+        $("ticketMessage").value.trim();
+
+    const profile=
+        JSON.parse(
+            localStorage.getItem("hh_profile") || "null"
+        );
+
+    const userName=
+        profile?.name ||
+        localStorage.getItem("hh_username") ||
+        "User";
+
+    if(!subject || !message){
+
+        toast("اكتب عنوان المشكلة والتفاصيل");
+
+        return;
+    }
+
+    const ticket={
+
+        id:
+            "T-"+Date.now(),
+
+        user:
+            userName,
+
+        category,
+        priority,
+        subject,
+        message,
+
+        status:"جديد",
+
+        reply:"",
+
+        date:
+            new Date().toLocaleString()
+
+    };
+
+    tickets.unshift(ticket);
+
+    localStorage.setItem(
+        "hh_tickets",
+        JSON.stringify(tickets)
+    );
+
+    $("ticketSubject").value="";
+    $("ticketMessage").value="";
+
+    renderMyTickets();
+    renderAdmin();
+
+    $("notificationDot").style.display="block";
+
+    playTone(
+        760,
+        .12,
+        "triangle",
+        .035
+    );
+
+    action();
+
+    toast(
+        `تم فتح التذكرة ${ticket.id} 🎫`
+    );
+
+}
+
+function renderMyTickets(){
+
+    const box=
+        $("myTickets");
+
+    const profile=
+        JSON.parse(
+            localStorage.getItem("hh_profile") || "null"
+        );
+
+    const userName=
+        profile?.name ||
+        localStorage.getItem("hh_username") ||
+        "User";
+
+    const mine=
+        tickets.filter(
+            t=>t.user===userName
+        );
+
+    if(!mine.length){
+
+        box.innerHTML=
+            `<div class="fixture-empty">
+                لا توجد تذاكر حتى الآن.
+            </div>`;
+
+        return;
+    }
+
+    box.innerHTML=
+        mine
+        .map(ticket=>`
+
+            <div class="ticket-card">
+
+                <div class="ticket-head">
+
+                    <div>
+
+                        <div class="ticket-title">
+                            ${escapeHTML(ticket.subject)}
+                        </div>
+
+                        <div class="ticket-meta">
+                            ${escapeHTML(ticket.id)}
+                            •
+                            ${escapeHTML(ticket.category)}
+                        </div>
+
+                    </div>
+
+                    ${ticketStatusHTML(ticket.status)}
+
+                </div>
+
+                <div class="ticket-message">
+                    ${escapeHTML(ticket.message)}
+                </div>
+
+                ${
+                    ticket.reply
+                    ?
+                    `
+                    <div
+                        class="discount-box"
+                        style="
+                            margin-top:12px;
+                            color:#b6c0d3;
+                            border-color:rgba(121,92,255,.16);
+                            background:rgba(121,92,255,.045)
+                        "
+                    >
+                        <b style="color:#a99cff">
+                            رد الإدارة:
+                        </b>
+                        <br>
+                        ${escapeHTML(ticket.reply)}
+                    </div>
+                    `
+                    :
+                    ""
+                }
+
+                <div class="ticket-meta">
+                    ${escapeHTML(ticket.date)}
+                </div>
+
+            </div>
+
+        `)
+        .join("");
+
+}
+
+function ticketStatusHTML(status){
+
+    if(status==="جديد"){
+        return `<span class="status new">جديد</span>`;
+    }
+
+    if(status==="قيد المعالجة"){
+        return `<span class="status processing">قيد المعالجة</span>`;
+    }
+
+    return `<span class="status closed">مغلق</span>`;
+
+}
+
+function updateTicketStatus(id,status){
+
+    const ticket=
+        tickets.find(t=>t.id===id);
+
+    if(!ticket) return;
+
+    ticket.status=status;
+
+    localStorage.setItem(
+        "hh_tickets",
+        JSON.stringify(tickets)
+    );
+
+    renderMyTickets();
+    renderAdmin();
+
+    playTone(
+        550,
+        .06,
+        "sine",
+        .02
+    );
+
+    toast("تم تحديث حالة التذكرة");
+
+}
+
+function replyTicket(id){
+
+    const ticket=
+        tickets.find(t=>t.id===id);
+
+    if(!ticket) return;
+
+    const reply=
+        prompt(
+            "اكتب رد الإدارة على التذكرة:"
+        );
+
+    if(reply===null) return;
+
+    const clean=
+        reply.trim();
+
+    if(!clean){
+
+        toast("اكتب الرد أولاً");
+
+        return;
+    }
+
+    ticket.reply=clean;
+    ticket.status="قيد المعالجة";
+
+    localStorage.setItem(
+        "hh_tickets",
+        JSON.stringify(tickets)
+    );
+
+    renderMyTickets();
+    renderAdmin();
+
+    playTone(
+        700,
+        .08,
+        "triangle",
+        .025
+    );
+
+    toast("تم إرسال الرد");
+
+}
+
+/* =====================================================
+ INQUIRIES
+===================================================== */
+
+function createInquiry(){
+
+    const subject=
+        $("inquirySubject").value.trim();
+
+    const message=
+        $("inquiryMessage").value.trim();
+
+    const profile=
+        JSON.parse(
+            localStorage.getItem("hh_profile") || "null"
+        );
+
+    const userName=
+        profile?.name ||
+        localStorage.getItem("hh_username") ||
+        "User";
+
+    if(!subject || !message){
+
+        toast("اكتب الموضوع والرسالة");
+
+        return;
+    }
+
+    inquiries.unshift({
+
+        id:
+            "Q-"+Date.now(),
+
+        user:
+            userName,
+
+        subject,
+        message,
+
+        status:"جديد",
+
+        reply:"",
+
+        date:
+            new Date().toLocaleString()
+
+    });
+
+    localStorage.setItem(
+        "hh_inquiries",
+        JSON.stringify(inquiries)
+    );
+
+    $("inquirySubject").value="";
+    $("inquiryMessage").value="";
+
+    renderMyInquiries();
+    renderAdmin();
+
+    $("notificationDot").style.display="block";
+
+    playTone(
+        740,
+        .10,
+        "sine",
+        .03
+    );
+
+    action();
+
+    toast("تم إرسال الاستفسار 💬");
+
+}
+
+function renderMyInquiries(){
+
+    const box=
+        $("myInquiries");
+
+    const profile=
+        JSON.parse(
+            localStorage.getItem("hh_profile") || "null"
+        );
+
+    const userName=
+        profile?.name ||
+        localStorage.getItem("hh_username") ||
+        "User";
+
+    const mine=
+        inquiries.filter(
+            q=>q.user===userName
+        );
+
+    if(!mine.length){
+
+        box.innerHTML=
+            `<div class="fixture-empty">
+                لا توجد استفسارات حتى الآن.
+            </div>`;
+
+        return;
+    }
+
+    box.innerHTML=
+        mine
+        .map(q=>`
+
+            <div class="inquiry-card">
+
+                <div class="ticket-head">
+
+                    <div>
+
+                        <div class="ticket-title">
+                            ${escapeHTML(q.subject)}
+                        </div>
+
+                        <div class="ticket-meta">
+                            ${escapeHTML(q.id)}
+                        </div>
+
+                    </div>
+
+                    ${ticketStatusHTML(q.status)}
+
+                </div>
+
+                <div class="ticket-message">
+                    ${escapeHTML(q.message)}
+                </div>
+
+                ${
+                    q.reply
+                    ?
+                    `
+                    <div class="discount-box"
+                        style="
+                            color:#b6c0d3;
+                            border-color:rgba(121,92,255,.16);
+                            background:rgba(121,92,255,.045)
+                        "
+                    >
+                        <b style="color:#a99cff">
+                            رد الإدارة:
+                        </b>
+                        <br>
+                        ${escapeHTML(q.reply)}
+                    </div>
+                    `
+                    :
+                    ""
+                }
+
+                <div class="ticket-meta">
+                    ${escapeHTML(q.date)}
+                </div>
+
+            </div>
+
+        `)
+        .join("");
+
+}
+
+function replyInquiry(id){
+
+    const inquiry=
+        inquiries.find(q=>q.id===id);
+
+    if(!inquiry) return;
+
+    const reply=
+        prompt(
+            "اكتب رد الإدارة:"
+        );
+
+    if(reply===null) return;
+
+    if(!reply.trim()){
+
+        toast("اكتب الرد أولاً");
+
+        return;
+    }
+
+    inquiry.reply=
+        reply.trim();
+
+    inquiry.status=
+        "قيد المعالجة";
+
+    localStorage.setItem(
+        "hh_inquiries",
+        JSON.stringify(inquiries)
+    );
+
+    renderMyInquiries();
+    renderAdmin();
+
+    toast("تم الرد على الاستفسار");
+
+}
+
+/* =====================================================
+ ADMIN
+===================================================== */
+
+function adminTab(id,button){
+
+    document
+        .querySelectorAll(".admin-tab")
+        .forEach(b=>
+            b.classList.remove("active")
+        );
+
+    document
+        .querySelectorAll(".admin-panel")
+        .forEach(p=>
+            p.classList.remove("active")
+        );
+
+    button.classList.add("active");
+
+    $("admin-"+id)
+        .classList.add("active");
+
+    renderAdmin();
+
+}
+
+function renderAdmin(){
+
+    renderAdminTickets();
+    renderAdminInquiries();
+    renderAdminApplications();
+    renderAdminMembers();
+
+}
+
+function renderAdminTickets(){
+
+    const box=
+        $("adminTicketsList");
+
+    if(!tickets.length){
+
+        box.innerHTML=
+            `<div class="fixture-empty">
+                لا توجد تذاكر.
+            </div>`;
+
+        return;
+    }
+
+    box.innerHTML=
+        tickets
+        .map(ticket=>`
+
+            <div class="ticket-card">
+
+                <div class="ticket-head">
+
+                    <div>
+
+                        <div class="ticket-title">
+                            ${escapeHTML(ticket.subject)}
+                        </div>
+
+                        <div class="ticket-meta">
+
+                            ${escapeHTML(ticket.id)}
+                            •
+                            ${escapeHTML(ticket.user)}
+                            •
+                            ${escapeHTML(ticket.priority)}
+
+                        </div>
+
+                    </div>
+
+                    ${ticketStatusHTML(ticket.status)}
+
+                </div>
+
+                <div class="ticket-message">
+                    ${escapeHTML(ticket.message)}
+                </div>
+
+                <div class="ticket-actions">
+
+                    <button
+                        class="btn warning"
+                        onclick="updateTicketStatus('${ticket.id}','قيد المعالجة')"
+                    >
+                        قيد المعالجة
+                    </button>
+
+                    <button
+                        class="btn success"
+                        onclick="updateTicketStatus('${ticket.id}','مغلق')"
+                    >
+                        إغلاق
+                    </button>
+
+                    <button
+                        class="btn primary"
+                        onclick="replyTicket('${ticket.id}')"
+                    >
+                        رد
+                    </button>
+
+                </div>
+
+                ${
+                    ticket.reply
+                    ?
+                    `
+                    <div class="ticket-meta"
+                        style="margin-top:12px"
+                    >
+                        آخر رد: ${escapeHTML(ticket.reply)}
+                    </div>
+                    `
+                    :
+                    ""
+                }
+
+            </div>
+
+        `)
+        .join("");
+
+}
+
+function renderAdminInquiries(){
+
+    const box=
+        $("adminInquiriesList");
+
+    if(!inquiries.length){
+
+        box.innerHTML=
+            `<div class="fixture-empty">
+                لا توجد استفسارات.
+            </div>`;
+
+        return;
+    }
+
+    box.innerHTML=
+        inquiries
+        .map(q=>`
+
+            <div class="inquiry-card">
+
+                <div class="ticket-head">
+
+                    <div>
+
+                        <div class="ticket-title">
+                            ${escapeHTML(q.subject)}
+                        </div>
+
+                        <div class="ticket-meta">
+                            ${escapeHTML(q.id)}
+                            •
+                            ${escapeHTML(q.user)}
+                        </div>
+
+                    </div>
+
+                    ${ticketStatusHTML(q.status)}
+
+                </div>
+
+                <div class="ticket-message">
+                    ${escapeHTML(q.message)}
+                </div>
+
+                <div class="ticket-actions">
+
+                    <button
+                        class="btn primary"
+                        onclick="replyInquiry('${q.id}')"
+                    >
+                        رد
+                    </button>
+
+                    <button
+                        class="btn success"
+                        onclick="setInquiryStatus('${q.id}','مغلق')"
+                    >
+                        إغلاق
+                    </button>
+
+                </div>
+
+            </div>
+
+        `)
+        .join("");
+
+}
+
+function setInquiryStatus(id,status){
+
+    const inquiry=
+        inquiries.find(q=>q.id===id);
+
+    if(!inquiry) return;
+
+    inquiry.status=status;
+
+    localStorage.setItem(
+        "hh_inquiries",
+        JSON.stringify(inquiries)
+    );
+
+    renderMyInquiries();
+    renderAdmin();
+
+    toast("تم تحديث الاستفسار");
+
+}
+
+function renderAdminApplications(){
+
+    const box=
+        $("adminApplicationsList");
+
+    if(!applications.length){
+
+        box.innerHTML=
+            `<div class="fixture-empty">
+                لا توجد طلبات.
+            </div>`;
+
+        return;
+    }
+
+    box.innerHTML=
+        applications
+        .map((app,index)=>`
+
+            <div class="application">
+
+                <div class="ticket-head">
+
+                    <div>
+
+                        <div class="ticket-title">
+                            ${escapeHTML(app.name)}
+                        </div>
+
+                        <div class="ticket-meta">
+                            العمر: ${escapeHTML(app.age)}
+                        </div>
+
+                    </div>
+
+                    ${ticketStatusHTML(app.status)}
+
+                </div>
+
+                <div class="ticket-message">
+                    ${escapeHTML(app.reason)}
+                </div>
+
+                <div class="ticket-actions">
+
+                    <button
+                        class="btn success"
+                        onclick="approveApplication(${index})"
+                    >
+                        قبول
+                    </button>
+
+                    <button
+                        class="btn danger"
+                        onclick="rejectApplication(${index})"
+                    >
+                        رفض
+                    </button>
+
+                </div>
+
+            </div>
+
+        `)
+        .join("");
+
+}
+
+function renderAdminMembers(){
+
+    const box=
+        $("adminMembersList");
+
+    if(!members.length){
+
+        box.innerHTML=
+            `<div class="fixture-empty">
+                لا يوجد أعضاء.
+            </div>`;
+
+        return;
+    }
+
+    box.innerHTML=
+        members
+        .map(member=>`
+
+            <div class="role-card">
+
+                <div>
+
+                    <strong>
+                        ${escapeHTML(member.name)}
+                    </strong>
+
+                    <div style="margin-top:7px">
+
+                        <span class="role-badge ${
+                            member.role==="admin"
+                            ?
+                            "admin"
+                            :
+                            "member"
+                        }">
+
+                            ${
+                                member.role==="admin"
+                                ?
+                                "👑 إدارة"
+                                :
+                                "⭐ عضو"
+                            }
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <strong style="color:#42e9aa">
+                    ${member.discount}%
+                </strong>
+
+            </div>
+
+        `)
+        .join("");
+
+}
+
+/* =====================================================
+ STUDENT
+===================================================== */
+
+function addTask(){
+
+    const input=
+        $("taskInput");
+
+    const value=
+        input.value.trim();
+
+    if(!value){
+
+        toast("اكتب المهمة أولاً");
+
+        return;
+    }
+
+    tasks.push({
+        text:value,
+        done:false
+    });
+
+    input.value="";
+
+    saveTasks();
+
+    action();
+
+    toast("تمت إضافة المهمة");
+
+}
+
+function saveTasks(){
+
+    localStorage.setItem(
+        "hh_tasks",
+        JSON.stringify(tasks)
+    );
+
+    renderTasks();
+
+}
+
+function renderTasks(){
+
+    const box=
+        $("taskList");
+
+    if(!tasks.length){
+
+        box.innerHTML=
+            `<p style="color:#687286;font-size:12px">
+                لا توجد مهام حالياً.
+            </p>`;
+
+        return;
+    }
+
+    box.innerHTML=
+        tasks
+        .map((t,i)=>`
+
+        <div style="
+            display:flex;
+            align-items:center;
+            gap:10px;
+            padding:11px 0;
+            border-bottom:1px solid var(--line)
+        ">
+
+            <input
+                type="checkbox"
+                ${t.done?"checked":""}
+                onchange="toggleTask(${i})"
+            >
+
+            <span style="
+                flex:1;
+                color:${t.done?"#657084":"white"};
+                text-decoration:${t.done?"line-through":"none"}
+            ">
+                ${escapeHTML(t.text)}
+            </span>
+
+            <button
+                class="btn danger"
+                onclick="deleteTask(${i})"
+            >
+                حذف
+            </button>
+
+        </div>
+
+    `)
+    .join("");
+
+}
+
+function toggleTask(i){
+
+    tasks[i].done=
+        !tasks[i].done;
+
+    saveTasks();
+
+    action();
+
+}
+
+function deleteTask(i){
+
+    tasks.splice(i,1);
+
+    saveTasks();
+
+    action();
+
+}
+
+function calculateGrade(){
+
+    const got=
+        Number($("gradeGot").value);
+
+    const total=
+        Number($("gradeTotal").value);
+
+    if(
+        !total ||
+        got<0 ||
+        got>total
+    ){
+
+        toast("أدخل الدرجات بشكل صحيح");
+
+        return;
+    }
+
+    const percent=
+        (got/total)*100;
+
+    let grade="";
+
+    if(percent>=90) grade="A";
+    else if(percent>=80) grade="B";
+    else if(percent>=70) grade="C";
+    else if(percent>=60) grade="D";
+    else grade="F";
+
+    $("gradeResult").textContent=
+        `${percent.toFixed(1)}% — ${grade}`;
+
+    action();
+
+}
+
+/* =====================================================
+ STORE
+===================================================== */
+
+function addCart(name,price){
+
+    cart.push({
+        name,
+        price
+    });
+
+    saveCart();
+
+    action();
+
+    playTone(
+        520,
+        .05,
+        "sine",
+        .018
+    );
+
+    toast("تمت الإضافة للسلة 🛒");
+
+}
+
+function saveCart(){
+
+    localStorage.setItem(
+        "hh_cart",
+        JSON.stringify(cart)
+    );
+
+    renderCart();
+
+}
+
+function renderCart(){
+
+    const list=
+        $("cartList");
+
+    if(!cart.length){
+
+        list.innerHTML=
+            `<p style="color:#687286;font-size:12px">
+                السلة فارغة.
+            </p>`;
+
+        $("cartTotal").textContent=
+            "AED 0";
+
+        $("cartDiscount").innerHTML="";
+
+        return;
+    }
+
+    list.innerHTML=
+        cart
+        .map((item,i)=>`
+
+        <div style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:12px 0;
+            border-bottom:1px solid var(--line)
+        ">
+
+            <span>
+                ${escapeHTML(item.name)}
+            </span>
+
+            <span>
+
+                AED ${item.price}
+
+                <button
+                    class="btn danger"
+                    style="
+                        margin-right:8px;
+                        padding:6px 9px
+                    "
+                    onclick="removeCart(${i})"
+                >
+                    ×
+                </button>
+
+            </span>
+
+        </div>
+
+    `)
+    .join("");
+
+    const subtotal=
+        cart.reduce(
+            (sum,x)=>sum+x.price,
+            0
+        );
+
+    const discountAmount=
+        subtotal*(currentDiscount/100);
+
+    const total=
+        subtotal-discountAmount;
+
+    if(currentDiscount>0){
+
+        $("cartDiscount").innerHTML=`
+
+            <div class="discount-box">
+
+                🎉 خصم ${currentDiscount}% فعال
+
+                <div style="margin-top:8px">
+
+                    <span class="old-price">
+                        AED ${subtotal.toFixed(2)}
+                    </span>
+
+                    <span class="final-price">
+                        AED ${total.toFixed(2)}
+                    </span>
+
+                </div>
+
+            </div>
+
+        `;
+
+    }else{
+
+        $("cartDiscount").innerHTML="";
+
+    }
+
+    $("cartTotal").textContent=
+        `AED ${total.toFixed(2)}`;
+
+}
+
+function removeCart(i){
+
+    cart.splice(i,1);
+
+    saveCart();
+
+    action();
+
+}
+
+function clearCart(){
+
+    cart=[];
+
+    saveCart();
+
+    action();
+
+    toast("تم تفريغ السلة");
+
+}
+
+/* =====================================================
+ SETTINGS
+===================================================== */
+
+function changeAccent(color){
+
+    document.documentElement
+        .style.setProperty(
+            "--accent",
+            color
+        );
+
+    localStorage.setItem(
+        "hh_accent",
+        color
+    );
+
+    toast("تم تغيير اللون");
+
+}
+
+function saveSettings(){
+
+    const name=
+        $("username").value.trim();
+
+    localStorage.setItem(
+        "hh_username",
+        name
+    );
+
+    if(name){
+
+        $("topName").textContent=name;
+
+        $("topAvatar").textContent=
+            name.charAt(0).toUpperCase();
+
+        $("heroUserName").textContent=
+            `يا ${name}`;
+
+    }
+
+    toast("تم حفظ الإعدادات");
+
+}
+
+function loadSettings(){
+
+    const accent=
+        localStorage.getItem("hh_accent");
+
+    const username=
+        localStorage.getItem("hh_username");
+
+    if(accent){
+
+        document.documentElement
+            .style.setProperty(
+                "--accent",
+                accent
+            );
+
+        $("accent").value=accent;
+
+    }
+
+    if(username){
+
+        $("username").value=username;
+
+    }
+
+    $("soundToggle").checked=
+        soundEnabled;
+
+}
+
+function resetApp(){
+
+    if(
+        !confirm(
+            "هل تريد حذف بيانات HAMID HUB المحلية بالكامل؟"
+        )
+    ) return;
+
+    localStorage.clear();
+
+    location.reload();
+
+}
+
+/* =====================================================
+ STATS
+===================================================== */
+
+function updateStats(){
+
+    $("statActions").textContent=
+        actions;
+
+    $("statLogos").textContent=
+        logos.length;
+
+    $("statCart").textContent=
+        cart.length;
+
+    $("statTasks").textContent=
+        tasks.length;
+
+    $("dashActions").textContent=
+        actions;
+
+    $("dashLogos").textContent=
+        logos.length;
+
+    $("dashCart").textContent=
+        cart.length;
+
+    $("dashTasks").textContent=
+        tasks.length;
+
+}
+
+/* =====================================================
+ PREMIUM STAR CANVAS
+===================================================== */
+
+const canvas=
+    $("spaceCanvas");
+
+const ctx=
+    canvas.getContext("2d");
+
+let starsCanvas=[];
+
+let meteors=[];
+
+function resizeCanvas(){
+
+    const dpr=
+        Math.min(
+            window.devicePixelRatio || 1,
+            2
+        );
+
+    canvas.width=
+        window.innerWidth*dpr;
+
+    canvas.height=
+        window.innerHeight*dpr;
+
+    canvas.style.width=
+        window.innerWidth+"px";
+
+    canvas.style.height=
+        window.innerHeight+"px";
+
+    ctx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+    );
+
+    createStars();
+
+}
+
+function createStars(){
+
+    starsCanvas=[];
+
+    const count=
+        Math.min(
+            190,
+            Math.floor(
+                window.innerWidth*
+                window.innerHeight/
+                7000
+            )
+        );
+
+    for(let i=0;i<count;i++){
+
+        starsCanvas.push({
+
+            x:
+                Math.random()*
+                window.innerWidth,
+
+            y:
+                Math.random()*
+                window.innerHeight,
+
+            r:
+                Math.random()*1.25+.15,
+
+            alpha:
+                Math.random()*.7+.1,
+
+            speed:
+                Math.random()*.20+.03,
+
+            twinkle:
+                Math.random()*.025+.004
+
+        });
+
+    }
+
+}
+
+function spawnMeteor(){
+
+    meteors.push({
+
+        x:
+            Math.random()*
+            window.innerWidth*
+            1.1,
+
+        y:
+            Math.random()*
+            window.innerHeight*.55,
+
+        vx:
+            -8-Math.random()*6,
+
+        vy:
+            4+Math.random()*4,
+
+        life:0,
+
+        maxLife:
+            45+Math.random()*35,
+
+        length:
+            90+Math.random()*130
+
+    });
+
+    if(soundEnabled){
+
+        playTone(
+            900,
+            .025,
+            "sine",
+            .008
+        );
+
+    }
+
+}
+
+function drawSpace(){
+
+    ctx.clearRect(
+        0,
+        0,
+        window.innerWidth,
+        window.innerHeight
+    );
+
+    for(const s of starsCanvas){
+
+        s.y+=s.speed;
+
+        s.alpha+=
+            Math.sin(
+                Date.now()*
+                s.twinkle
+            )*.003;
+
+        if(s.y>window.innerHeight+5){
+
+            s.y=-5;
+
+            s.x=
+                Math.random()*
+                window.innerWidth;
+
+        }
+
+        ctx.beginPath();
+
+        ctx.fillStyle=
+            `rgba(255,255,255,${Math.max(.04,Math.min(.85,s.alpha))})`;
+
+        ctx.arc(
+            s.x,
+            s.y,
+            s.r,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+
+    }
+
+    for(let i=meteors.length-1;i>=0;i--){
+
+        const m=
+            meteors[i];
+
+        m.x+=m.vx;
+        m.y+=m.vy;
+        m.life++;
+
+        const gradient=
+            ctx.createLinearGradient(
+                m.x,
+                m.y,
+                m.x-m.vx*8,
+                m.y-m.vy*8
+            );
+
+        gradient.addColorStop(
+            0,
+            "rgba(255,255,255,.95)"
+        );
+
+        gradient.addColorStop(
+            .35,
+            "rgba(0,217,255,.65)"
+        );
+
+        gradient.addColorStop(
+            1,
+            "rgba(0,217,255,0)"
+        );
+
+        ctx.beginPath();
+
+        ctx.strokeStyle=gradient;
+        ctx.lineWidth=1.7;
+
+        ctx.moveTo(
+            m.x,
+            m.y
+        );
+
+        ctx.lineTo(
+            m.x-m.vx*8,
+            m.y-m.vy*8
+        );
+
+        ctx.stroke();
+
+        if(m.life>m.maxLife){
+
+            meteors.splice(i,1);
+
+        }
+
+    }
+
+    requestAnimationFrame(drawSpace);
+
+}
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+resizeCanvas();
+drawSpace();
+
+setInterval(
+    spawnMeteor,
+    5200
+);
+
+/* =====================================================
+ STARTUP
+===================================================== */
+
+function startup(){
+
+    loadSettings();
+
+    renderTasks();
+
+    renderCart();
+
+    renderMembers();
+
+    renderApplications();
+
+    renderMyTickets();
+
+    renderMyInquiries();
+
+    renderAdmin();
+
+    updateStats();
+
+    setupProfile();
+
+    const profile=
+        localStorage.getItem("hh_profile");
+
+    if(profile){
+
+        $("welcomeScreen")
+            .classList.add("hidden");
+
+        $("app")
+            .classList.add("ready");
+
+    }else{
+
+        $("app")
+            .classList.remove("ready");
+
+    }
+
+}
+
+startup();
+
+</script>
+
+</body>
+</html>
